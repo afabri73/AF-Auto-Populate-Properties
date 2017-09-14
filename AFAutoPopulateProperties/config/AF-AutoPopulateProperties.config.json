@@ -1,0 +1,112 @@
+[
+    {
+        "section": "content",
+        "actions": [
+            {
+                "action": "Created",
+                "properties": [
+                    {
+                        "propertyAlias": "date",
+                        "config": {
+                            "propertyType": "datetime",
+                            "propertyAliasToCopyValue": "",
+                            "defaultValue": "now"
+                        }
+                    }
+                ]
+            },
+            {
+                "action": "Saving",
+                "properties": [
+                    {
+                        "propertyAlias": "date",
+                        "config": {
+                            "propertyType": "datetime",
+                            "propertyAliasToCopyValue": "CreateDate",
+                            "defaultValue": ""
+                        }
+                    },
+                    {
+                        "propertyAlias": "title",
+                        "config": {
+                            "propertyType": "string",
+                            "propertyAliasToCopyValue": "Name",
+                            "defaultValue": ""
+                        }
+                    },
+                    {
+                        "propertyAlias": "excerpt",
+                        "config": {
+                            "propertyType": "string",
+                            "propertyAliasToCopyValue": "",
+                            "defaultValue": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        }
+                    },
+                    {
+                        "propertyAlias": "isBool",
+                        "config": {
+                            "propertyType": "bool",
+                            "propertyAliasToCopyValue": "",
+                            "defaultValue": "true"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "section": "media",
+        "actions": [
+            {
+                "action": "Created",
+                "properties": [
+                    {
+                        "propertyAlias": "date",
+                        "config": {
+                            "propertyType": "datetime",
+                            "propertyAliasToCopyValue": "",
+                            "defaultValue": "now"
+                        }
+                    }
+                ]
+            },
+            {
+                "action": "Saving",
+                "properties": [
+                    {
+                        "propertyAlias": "date",
+                        "config": {
+                            "propertyType": "datetime",
+                            "propertyAliasToCopyValue": "CreateDate",
+                            "defaultValue": ""
+                        }
+                    },
+                    {
+                        "propertyAlias": "title",
+                        "config": {
+                            "propertyType": "string",
+                            "propertyAliasToCopyValue": "Name",
+                            "defaultValue": ""
+                        }
+                    },
+                    {
+                        "propertyAlias": "excerpt",
+                        "config": {
+                            "propertyType": "string",
+                            "propertyAliasToCopyValue": "",
+                            "defaultValue": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        }
+                    },
+                    {
+                        "propertyAlias": "isBool",
+                        "config": {
+                            "propertyType": "bool",
+                            "propertyAliasToCopyValue": "",
+                            "defaultValue": "true"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]

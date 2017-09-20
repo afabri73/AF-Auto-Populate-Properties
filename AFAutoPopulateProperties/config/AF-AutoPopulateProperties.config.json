@@ -4,51 +4,79 @@
         "actions": [
             {
                 "action": "Created",
-                "properties": [
+                "doctypes": [
                     {
-                        "propertyAlias": "date",
-                        "config": {
-                            "propertyType": "datetime",
-                            "propertyAliasToCopyValue": "",
-                            "defaultValue": "now"
-                        }
+                        "doctypeAlias": "",
+                        "properties": [
+                            {
+                                "propertyAlias": "date",
+                                "config": {
+                                    "propertyType": "datetime",
+                                    "propertyAliasToCopyValue": "",
+                                    "defaultValue": "now"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "doctypeAlias": "contentPage",
+                        "properties": [
+                            {
+                                "propertyAlias": "title",
+                                "config": {
+                                    "propertyType": "string",
+                                    "propertyAliasToCopyValue": "",
+                                    "defaultValue": "New title"
+                                }
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "action": "Saving",
-                "properties": [
+                "doctypes": [
                     {
-                        "propertyAlias": "date",
-                        "config": {
-                            "propertyType": "datetime",
-                            "propertyAliasToCopyValue": "CreateDate",
-                            "defaultValue": ""
-                        }
+                        "doctypeAlias": "",
+                        "properties": [
+                            {
+                                "propertyAlias": "date",
+                                "config": {
+                                    "propertyType": "datetime",
+                                    "propertyAliasToCopyValue": "CreateDate",
+                                    "defaultValue": ""
+                                }
+                            },
+                            {
+                                "propertyAlias": "title",
+                                "config": {
+                                    "propertyType": "string",
+                                    "propertyAliasToCopyValue": "Name",
+                                    "defaultValue": ""
+                                }
+                            }
+                        ]
                     },
                     {
-                        "propertyAlias": "title",
-                        "config": {
-                            "propertyType": "string",
-                            "propertyAliasToCopyValue": "Name",
-                            "defaultValue": ""
-                        }
-                    },
-                    {
-                        "propertyAlias": "excerpt",
-                        "config": {
-                            "propertyType": "string",
-                            "propertyAliasToCopyValue": "",
-                            "defaultValue": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        }
-                    },
-                    {
-                        "propertyAlias": "isBool",
-                        "config": {
-                            "propertyType": "bool",
-                            "propertyAliasToCopyValue": "",
-                            "defaultValue": "true"
-                        }
+                        "doctypeAlias": "contentPage",
+                        "properties": [
+                            {
+                                "propertyAlias": "excerpt",
+                                "config": {
+                                    "propertyType": "string",
+                                    "propertyAliasToCopyValue": "",
+                                    "defaultValue": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                                }
+                            },
+                            {
+                                "propertyAlias": "isBool",
+                                "config": {
+                                    "propertyType": "bool",
+                                    "propertyAliasToCopyValue": "",
+                                    "defaultValue": "true"
+                                }
+                            }
+                        ]
                     }
                 ]
             }
@@ -59,51 +87,79 @@
         "actions": [
             {
                 "action": "Created",
-                "properties": [
+                "doctypes": [
                     {
-                        "propertyAlias": "date",
-                        "config": {
-                            "propertyType": "datetime",
-                            "propertyAliasToCopyValue": "",
-                            "defaultValue": "now"
-                        }
+                        "doctypeAlias": "",
+                        "properties": [
+                            {
+                                "propertyAlias": "date",
+                                "config": {
+                                    "propertyType": "datetime",
+                                    "propertyAliasToCopyValue": "",
+                                    "defaultValue": "now"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "doctypeAlias": "contentPage",
+                        "properties": [
+                            {
+                                "propertyAlias": "title",
+                                "config": {
+                                    "propertyType": "string",
+                                    "propertyAliasToCopyValue": "",
+                                    "defaultValue": "New title"
+                                }
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "action": "Saving",
-                "properties": [
+                "doctypes": [
                     {
-                        "propertyAlias": "date",
-                        "config": {
-                            "propertyType": "datetime",
-                            "propertyAliasToCopyValue": "CreateDate",
-                            "defaultValue": ""
-                        }
+                        "doctypeAlias": "",
+                        "properties": [
+                            {
+                                "propertyAlias": "date",
+                                "config": {
+                                    "propertyType": "datetime",
+                                    "propertyAliasToCopyValue": "CreateDate",
+                                    "defaultValue": ""
+                                }
+                            },
+                            {
+                                "propertyAlias": "title",
+                                "config": {
+                                    "propertyType": "string",
+                                    "propertyAliasToCopyValue": "Name",
+                                    "defaultValue": ""
+                                }
+                            }
+                        ]
                     },
                     {
-                        "propertyAlias": "title",
-                        "config": {
-                            "propertyType": "string",
-                            "propertyAliasToCopyValue": "Name",
-                            "defaultValue": ""
-                        }
-                    },
-                    {
-                        "propertyAlias": "excerpt",
-                        "config": {
-                            "propertyType": "string",
-                            "propertyAliasToCopyValue": "",
-                            "defaultValue": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        }
-                    },
-                    {
-                        "propertyAlias": "isBool",
-                        "config": {
-                            "propertyType": "bool",
-                            "propertyAliasToCopyValue": "",
-                            "defaultValue": "true"
-                        }
+                        "doctypeAlias": "contentPage",
+                        "properties": [
+                            {
+                                "propertyAlias": "excerpt",
+                                "config": {
+                                    "propertyType": "string",
+                                    "propertyAliasToCopyValue": "",
+                                    "defaultValue": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                                }
+                            },
+                            {
+                                "propertyAlias": "isBool",
+                                "config": {
+                                    "propertyType": "bool",
+                                    "propertyAliasToCopyValue": "",
+                                    "defaultValue": "true"
+                                }
+                            }
+                        ]
                     }
                 ]
             }

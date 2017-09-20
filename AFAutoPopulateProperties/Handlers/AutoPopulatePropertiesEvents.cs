@@ -68,45 +68,52 @@ namespace AFUmbracoLibrary.Handlers
             {
                 var APP_CreatedAction = APP_JSONConfiguration.Find(apfconfig => apfconfig.SectionName == "content").Actions.Find(apfsection => apfsection.ActionName == "Created");
 
-                if ((APP_CreatedAction != null) && (APP_CreatedAction.Properties.Count > 0))
+                if ((APP_CreatedAction != null) && (APP_CreatedAction.Doctypes.Where(doc => doc.DoctypeAlias == contentEventArgs.Entity.ContentType.Alias || doc.DoctypeAlias == string.Empty).Count() > 0))
                 {
-                    foreach (var APP_Property in APP_CreatedAction.Properties)
+                    foreach (var APP_Doctype in APP_CreatedAction.Doctypes.Where(doc => doc.DoctypeAlias == contentEventArgs.Entity.ContentType.Alias || doc.DoctypeAlias == string.Empty))
                     {
-                        if (contentEventArgs.Entity.HasProperty(APP_Property.PropertyAlias))
+                        if (APP_Doctype.Properties.Count > 0)
                         {
-                            switch (APP_Property.Config.PropertyType)
+                            foreach (var APP_Property in APP_Doctype.Properties)
                             {
-                                case "bool":
-                                    if (APP_Property.Config.DefaultValue == "true")
+                                if (contentEventArgs.Entity.HasProperty(APP_Property.PropertyAlias))
+                                {
+                                    switch (APP_Property.Config.PropertyType)
                                     {
-                                        contentEventArgs.Entity.SetValue(APP_Property.PropertyAlias, true);
-                                    }
-                                    break;
-                                case "datetime":
-                                    if (APP_Property.Config.DefaultValue == "now")
-                                    {
-                                        contentEventArgs.Entity.SetValue(APP_Property.PropertyAlias, DateTime.Now);
-                                    }
-                                    else
-                                    {
-                                        // the date value must be in this format: yyyy,mm,dd,hh,mm,ss
-                                        int[] dateValue = APP_Property.Config.DefaultValue.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+                                        case "bool":
+                                            if (APP_Property.Config.DefaultValue == "true")
+                                            {
+                                                contentEventArgs.Entity.SetValue(APP_Property.PropertyAlias, true);
+                                            }
+                                            break;
+                                        case "datetime":
+                                            if (APP_Property.Config.DefaultValue == "now")
+                                            {
+                                                contentEventArgs.Entity.SetValue(APP_Property.PropertyAlias, DateTime.Now);
+                                            }
+                                            else
+                                            {
+                                                // the date value must be in this format: yyyy,mm,dd,hh,mm,ss
+                                                int[] dateValue = APP_Property.Config.DefaultValue.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
 
-                                        if (dateValue.Length > 0)
-                                        {
-                                            DateTime formattedDate = new DateTime(dateValue[0], dateValue[1], dateValue[2], dateValue[3], dateValue[4], dateValue[5]);
+                                                if (dateValue.Length > 0)
+                                                {
+                                                    DateTime formattedDate = new DateTime(dateValue[0], dateValue[1], dateValue[2], dateValue[3], dateValue[4], dateValue[5]);
 
-                                            contentEventArgs.Entity.SetValue(APP_Property.PropertyAlias, formattedDate);
-                                        }
+                                                    contentEventArgs.Entity.SetValue(APP_Property.PropertyAlias, formattedDate);
+                                                }
+                                            }
+                                            break;
+                                        case "string":
+                                        default:
+                                            contentEventArgs.Entity.SetValue(APP_Property.PropertyAlias, APP_Property.Config.DefaultValue);
+                                            break;
                                     }
-                                    break;
-                                case "string":
-                                default:
-                                    contentEventArgs.Entity.SetValue(APP_Property.PropertyAlias, APP_Property.Config.DefaultValue);
-                                    break;
+                                }
                             }
                         }
                     }
+                    
                 }
             }
             catch (Exception ex)
@@ -126,69 +133,78 @@ namespace AFUmbracoLibrary.Handlers
             {
                 var APP_SavingAction = APP_JSONConfiguration.Find(apfconfig => apfconfig.SectionName == "content").Actions.Find(apfsection => apfsection.ActionName == "Saving");
 
-                if ((APP_SavingAction != null) && (APP_SavingAction.Properties.Count > 0))
+                if ((APP_SavingAction != null) && (APP_SavingAction.Doctypes.Count > 0))
                 {
                     foreach (var content in contentEventArgs.SavedEntities)
                     {
-                        foreach (var APP_Property in APP_SavingAction.Properties)
+                        if (APP_SavingAction.Doctypes.Where(doc => doc.DoctypeAlias == content.ContentType.Alias || doc.DoctypeAlias == string.Empty).Count() > 0)
                         {
-                            if (((content.HasProperty(APP_Property.PropertyAlias)) && (APP_Property.Config.PropertyType == "bool")) || ((content.HasProperty(APP_Property.PropertyAlias)) && (String.IsNullOrEmpty(content.GetValue<string>(APP_Property.PropertyAlias)))))
+                            foreach (var APP_Doctype in APP_SavingAction.Doctypes.Where(doc => doc.DoctypeAlias == content.ContentType.Alias || doc.DoctypeAlias == string.Empty))
                             {
-                                switch (APP_Property.Config.PropertyType)
+
+                                if (APP_Doctype.Properties.Count > 0)
                                 {
-                                    case "bool":
-                                        if (APP_Property.Config.DefaultValue == "true")
+                                    foreach (var APP_Property in APP_Doctype.Properties)
+                                    {
+                                        if (((content.HasProperty(APP_Property.PropertyAlias)) && (APP_Property.Config.PropertyType == "bool")) || ((content.HasProperty(APP_Property.PropertyAlias)) && (String.IsNullOrEmpty(content.GetValue<string>(APP_Property.PropertyAlias)))))
                                         {
-                                            content.SetValue(APP_Property.PropertyAlias, "1");
-                                        }
-                                        break;
-                                    case "datetime":
-                                        if (APP_Property.Config.DefaultValue == "now")
-                                        {
-                                            content.SetValue(APP_Property.PropertyAlias, DateTime.Now);
-                                        }
-                                        else if (APP_Property.Config.PropertyAliasToCopyValue == "CreateDate")
-                                        {
-                                            content.SetValue(APP_Property.PropertyAlias, content.CreateDate);
-                                        }
-                                        else
-                                        {
-                                            if (!String.IsNullOrEmpty(APP_Property.Config.DefaultValue))
+                                            switch (APP_Property.Config.PropertyType)
                                             {
-                                                // the date value must be in this format: yyyy,mm,dd,hh,mm,ss
-                                                int[] dateValue = APP_Property.Config.DefaultValue.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+                                                case "bool":
+                                                    if (APP_Property.Config.DefaultValue == "true")
+                                                    {
+                                                        content.SetValue(APP_Property.PropertyAlias, "1");
+                                                    }
+                                                    break;
+                                                case "datetime":
+                                                    if (APP_Property.Config.DefaultValue == "now")
+                                                    {
+                                                        content.SetValue(APP_Property.PropertyAlias, DateTime.Now);
+                                                    }
+                                                    else if (APP_Property.Config.PropertyAliasToCopyValue == "CreateDate")
+                                                    {
+                                                        content.SetValue(APP_Property.PropertyAlias, content.CreateDate);
+                                                    }
+                                                    else
+                                                    {
+                                                        if (!String.IsNullOrEmpty(APP_Property.Config.DefaultValue))
+                                                        {
+                                                            // the date value must be in this format: yyyy,mm,dd,hh,mm,ss
+                                                            int[] dateValue = APP_Property.Config.DefaultValue.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
 
-                                                if (dateValue.Length > 0)
-                                                {
-                                                    DateTime formattedDate = new DateTime(dateValue[0], dateValue[1], dateValue[2], dateValue[3], dateValue[4], dateValue[5]);
+                                                            if (dateValue.Length > 0)
+                                                            {
+                                                                DateTime formattedDate = new DateTime(dateValue[0], dateValue[1], dateValue[2], dateValue[3], dateValue[4], dateValue[5]);
 
-                                                    content.SetValue(APP_Property.PropertyAlias, formattedDate);
-                                                }
+                                                                content.SetValue(APP_Property.PropertyAlias, formattedDate);
+                                                            }
+                                                        }
+                                                    }
+                                                    break;
+                                                case "string":
+                                                    if (APP_Property.Config.PropertyAliasToCopyValue == "Name")
+                                                    {
+                                                        content.SetValue(APP_Property.PropertyAlias, content.Name);
+                                                    }
+                                                    else if (!String.IsNullOrEmpty(APP_Property.Config.PropertyAliasToCopyValue))
+                                                    {
+                                                        content.SetValue(APP_Property.PropertyAlias, content.Properties[APP_Property.Config.PropertyAliasToCopyValue].Value);
+                                                    }
+                                                    else
+                                                    {
+                                                        content.SetValue(APP_Property.PropertyAlias, APP_Property.Config.DefaultValue);
+                                                    }
+                                                    break;
+                                                default:
+                                                    break;
                                             }
                                         }
-                                        break;
-                                    case "string":
-                                        if (APP_Property.Config.PropertyAliasToCopyValue == "Name")
-                                        {
-                                            content.SetValue(APP_Property.PropertyAlias, content.Name);
-                                        }
-                                        else if (!String.IsNullOrEmpty(APP_Property.Config.PropertyAliasToCopyValue))
-                                        {
-                                            content.SetValue(APP_Property.PropertyAlias, content.Properties[APP_Property.Config.PropertyAliasToCopyValue].Value);
-                                        }
-                                        else
-                                        {
-                                            content.SetValue(APP_Property.PropertyAlias, APP_Property.Config.DefaultValue);
-                                        }
-                                        break;
-                                    default:
-                                        break;
+                                    }
                                 }
                             }
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -207,42 +223,48 @@ namespace AFUmbracoLibrary.Handlers
             {
                 var APP_CreatedAction = APP_JSONConfiguration.Find(apfconfig => apfconfig.SectionName == "media").Actions.Find(apfsection => apfsection.ActionName == "Created");
 
-                if ((APP_CreatedAction != null) && (APP_CreatedAction.Properties.Count > 0))
+                if ((APP_CreatedAction != null) && (APP_CreatedAction.Doctypes.Where(doc => doc.DoctypeAlias == mediaEventArgs.Entity.ContentType.Alias || doc.DoctypeAlias == string.Empty).Count() > 0))
                 {
-                    foreach (var APP_Property in APP_CreatedAction.Properties)
+                    foreach (var APP_Doctype in APP_CreatedAction.Doctypes.Where(doc => doc.DoctypeAlias == mediaEventArgs.Entity.ContentType.Alias || doc.DoctypeAlias == string.Empty))
                     {
-                        if (mediaEventArgs.Entity.HasProperty(APP_Property.PropertyAlias))
+                        if (APP_Doctype.Properties.Count > 0)
                         {
-                            switch (APP_Property.Config.PropertyType)
+                            foreach (var APP_Property in APP_Doctype.Properties)
                             {
-                                case "bool":
-                                    if (APP_Property.Config.DefaultValue == "true")
+                                if (mediaEventArgs.Entity.HasProperty(APP_Property.PropertyAlias))
+                                {
+                                    switch (APP_Property.Config.PropertyType)
                                     {
-                                        mediaEventArgs.Entity.SetValue(APP_Property.PropertyAlias, true);
-                                    }
-                                    break;
-                                case "datetime":
-                                    if (APP_Property.Config.DefaultValue == "now")
-                                    {
-                                        mediaEventArgs.Entity.SetValue(APP_Property.PropertyAlias, DateTime.Now);
-                                    }
-                                    else
-                                    {
-                                        // the date value must be in this format: yyyy,mm,dd,hh,mm,ss
-                                        int[] dateValue = APP_Property.Config.DefaultValue.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+                                        case "bool":
+                                            if (APP_Property.Config.DefaultValue == "true")
+                                            {
+                                                mediaEventArgs.Entity.SetValue(APP_Property.PropertyAlias, true);
+                                            }
+                                            break;
+                                        case "datetime":
+                                            if (APP_Property.Config.DefaultValue == "now")
+                                            {
+                                                mediaEventArgs.Entity.SetValue(APP_Property.PropertyAlias, DateTime.Now);
+                                            }
+                                            else
+                                            {
+                                                // the date value must be in this format: yyyy,mm,dd,hh,mm,ss
+                                                int[] dateValue = APP_Property.Config.DefaultValue.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
 
-                                        if (dateValue.Length > 0)
-                                        {
-                                            DateTime formattedDate = new DateTime(dateValue[0], dateValue[1], dateValue[2], dateValue[3], dateValue[4], dateValue[5]);
+                                                if (dateValue.Length > 0)
+                                                {
+                                                    DateTime formattedDate = new DateTime(dateValue[0], dateValue[1], dateValue[2], dateValue[3], dateValue[4], dateValue[5]);
 
-                                            mediaEventArgs.Entity.SetValue(APP_Property.PropertyAlias, formattedDate);
-                                        }
+                                                    mediaEventArgs.Entity.SetValue(APP_Property.PropertyAlias, formattedDate);
+                                                }
+                                            }
+                                            break;
+                                        case "string":
+                                        default:
+                                            mediaEventArgs.Entity.SetValue(APP_Property.PropertyAlias, APP_Property.Config.DefaultValue);
+                                            break;
                                     }
-                                    break;
-                                case "string":
-                                default:
-                                    mediaEventArgs.Entity.SetValue(APP_Property.PropertyAlias, APP_Property.Config.DefaultValue);
-                                    break;
+                                }
                             }
                         }
                     }
@@ -265,69 +287,78 @@ namespace AFUmbracoLibrary.Handlers
             {
                 var APP_SavingAction = APP_JSONConfiguration.Find(apfconfig => apfconfig.SectionName == "media").Actions.Find(apfsection => apfsection.ActionName == "Saving");
 
-                if ((APP_SavingAction != null) && (APP_SavingAction.Properties.Count > 0))
+                if ((APP_SavingAction != null) && (APP_SavingAction.Doctypes.Count > 0))
                 {
                     foreach (var media in mediaEventArgs.SavedEntities)
                     {
-                        foreach (var APP_Property in APP_SavingAction.Properties)
+                        if (APP_SavingAction.Doctypes.Where(doc => doc.DoctypeAlias == media.ContentType.Alias || doc.DoctypeAlias == string.Empty).Count() > 0)
                         {
-                            if (((media.HasProperty(APP_Property.PropertyAlias)) && (APP_Property.Config.PropertyType == "bool")) || ((media.HasProperty(APP_Property.PropertyAlias)) && (String.IsNullOrEmpty(media.GetValue<string>(APP_Property.PropertyAlias)))))
+                            foreach (var APP_Doctype in APP_SavingAction.Doctypes.Where(doc => doc.DoctypeAlias == media.ContentType.Alias || doc.DoctypeAlias == string.Empty))
                             {
-                                switch (APP_Property.Config.PropertyType)
+
+                                if (APP_Doctype.Properties.Count > 0)
                                 {
-                                    case "bool":
-                                        if (APP_Property.Config.DefaultValue == "true")
+                                    foreach (var APP_Property in APP_Doctype.Properties)
+                                    {
+                                        if (((media.HasProperty(APP_Property.PropertyAlias)) && (APP_Property.Config.PropertyType == "bool")) || ((media.HasProperty(APP_Property.PropertyAlias)) && (String.IsNullOrEmpty(media.GetValue<string>(APP_Property.PropertyAlias)))))
                                         {
-                                            media.SetValue(APP_Property.PropertyAlias, true);
-                                        }
-                                        break;
-                                    case "datetime":
-                                        if (APP_Property.Config.DefaultValue == "now")
-                                        {
-                                            media.SetValue(APP_Property.PropertyAlias, DateTime.Now);
-                                        }
-                                        else if (APP_Property.Config.PropertyAliasToCopyValue == "CreateDate")
-                                        {
-                                            media.SetValue(APP_Property.PropertyAlias, media.CreateDate);
-                                        }
-                                        else
-                                        {
-                                            if (!String.IsNullOrEmpty(APP_Property.Config.DefaultValue))
+                                            switch (APP_Property.Config.PropertyType)
                                             {
-                                                // the date value must be in this format: yyyy,mm,dd,hh,mm,ss
-                                                int[] dateValue = APP_Property.Config.DefaultValue.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+                                                case "bool":
+                                                    if (APP_Property.Config.DefaultValue == "true")
+                                                    {
+                                                        media.SetValue(APP_Property.PropertyAlias, true);
+                                                    }
+                                                    break;
+                                                case "datetime":
+                                                    if (APP_Property.Config.DefaultValue == "now")
+                                                    {
+                                                        media.SetValue(APP_Property.PropertyAlias, DateTime.Now);
+                                                    }
+                                                    else if (APP_Property.Config.PropertyAliasToCopyValue == "CreateDate")
+                                                    {
+                                                        media.SetValue(APP_Property.PropertyAlias, media.CreateDate);
+                                                    }
+                                                    else
+                                                    {
+                                                        if (!String.IsNullOrEmpty(APP_Property.Config.DefaultValue))
+                                                        {
+                                                            // the date value must be in this format: yyyy,mm,dd,hh,mm,ss
+                                                            int[] dateValue = APP_Property.Config.DefaultValue.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
 
-                                                if (dateValue.Length > 0)
-                                                {
-                                                    DateTime formattedDate = new DateTime(dateValue[0], dateValue[1], dateValue[2], dateValue[3], dateValue[4], dateValue[5]);
+                                                            if (dateValue.Length > 0)
+                                                            {
+                                                                DateTime formattedDate = new DateTime(dateValue[0], dateValue[1], dateValue[2], dateValue[3], dateValue[4], dateValue[5]);
 
-                                                    media.SetValue(APP_Property.PropertyAlias, formattedDate);
-                                                }
+                                                                media.SetValue(APP_Property.PropertyAlias, formattedDate);
+                                                            }
+                                                        }
+                                                    }
+                                                    break;
+                                                case "string":
+                                                    if (APP_Property.Config.PropertyAliasToCopyValue == "Name")
+                                                    {
+                                                        media.SetValue(APP_Property.PropertyAlias, media.Name);
+                                                    }
+                                                    else if (!String.IsNullOrEmpty(APP_Property.Config.PropertyAliasToCopyValue))
+                                                    {
+                                                        media.SetValue(APP_Property.PropertyAlias, media.Properties[APP_Property.Config.PropertyAliasToCopyValue].Value);
+                                                    }
+                                                    else
+                                                    {
+                                                        media.SetValue(APP_Property.PropertyAlias, APP_Property.Config.DefaultValue);
+                                                    }
+                                                    break;
+                                                default:
+                                                    break;
                                             }
                                         }
-                                        break;
-                                    case "string":
-                                        if (APP_Property.Config.PropertyAliasToCopyValue == "Name")
-                                        {
-                                            media.SetValue(APP_Property.PropertyAlias, media.Name);
-                                        }
-                                        else if (!String.IsNullOrEmpty(APP_Property.Config.PropertyAliasToCopyValue))
-                                        {
-                                            media.SetValue(APP_Property.PropertyAlias, media.Properties[APP_Property.Config.PropertyAliasToCopyValue].Value);
-                                        }
-                                        else
-                                        {
-                                            media.SetValue(APP_Property.PropertyAlias, APP_Property.Config.DefaultValue);
-                                        }
-                                        break;
-                                    default:
-                                        break;
+                                    }
                                 }
                             }
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {

@@ -31,15 +31,26 @@ namespace AFUmbracoLibrary.Models
         public Config Config { get; set; }
     }
 
+    /// <summary>Doctype Model</summary>
+    public class Doctype
+    {
+        /// <summary>DocTypeAlias</summary>
+        [JsonProperty("doctypeAlias")]
+        public string DoctypeAlias { get; set; }
+        /// <summary>Properties</summary>
+        [JsonProperty("properties")]
+        public List<Property> Properties { get; set; }
+    }
+
     /// <summary>Action Model</summary>
     public class Action
     {
         /// <summary>ActionName</summary>
         [JsonProperty("action")]
         public string ActionName { get; set; }
-        /// <summary>Properties</summary>
-        [JsonProperty("properties")]
-        public List<Property> Properties { get; set; }
+        /// <summary>DocTypes</summary>
+        [JsonProperty("doctypes")]
+        public List<Doctype> Doctypes { get; set; }
     }
 
     /// <summary>AutoPopulateProperties Model</summary>

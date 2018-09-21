@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language alias="en" intName="English (UK)" localName="English (UK)" lcid="" culture="en-GB">
+    <creator>
+        <name>Adriano Fabri</name>
+        <link>https://our.umbraco.org/projects/backoffice-extensions/af-auto-populate-properties/</link>
+    </creator>
+    <area alias="AFAPP">
+        <key alias="Config.PageTitle"><![CDATA[AF - Auto Populate Properties]]></key>
+        <key alias="Config.Title"><![CDATA[Configuration Manager]]></key>
+        <key alias="Config.SubTitle"><![CDATA[ ]]></key>
+        <key alias="Config.Description"><![CDATA[With this tool you can create the JSON Structure with a simple GUI]]></key>
+        <key alias="Config.ContentSection.PanelTitle"><![CDATA[Section: CONTENT]]></key>
+        <key alias="Config.ContentSection.PanelFooter"><![CDATA[ ]]></key>
+        <key alias="Config.MediaSection.PanelTitle"><![CDATA[Section: MEDIA]]></key>
+        <key alias="Config.MediaSection.PanelFooter"><![CDATA[ ]]></key>
+    </area>
+</language>

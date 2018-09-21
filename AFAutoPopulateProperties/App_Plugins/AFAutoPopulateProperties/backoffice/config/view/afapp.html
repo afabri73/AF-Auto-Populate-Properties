@@ -1,0 +1,121 @@
+﻿<div ng-controller="AFAPPJSONConfigController">
+    <umb-panel>
+        <umb-header id="afapp-header">
+            <div class="umb-panel-header-content-wrapper">
+                <div class="umb-panel-header-content">
+                    <div class="umb-panel-header-left-side -top-position" ng-class="{'-top-position': tabs || !icon }">
+                        <div class="umb-panel-header-title-wrapper">
+                            <div class="umb-panel-header-name ng-scope ng-binding"><h2><localize key="AFAPP_Config.PageTitle"></localize></h2></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </umb-header>
+        <umb-content id="afapp-content">
+            <div class="umb-panel-body with-header umb-scrollable no-footer" style="padding: 0 20px; margin-top: 19px;">
+                <h3 class="title"><localize key="AFAPP_Config.Title"></localize> <localize key="AFAPP_Config.SubTitle"> </localize></h3>
+                <div class="description">
+                    <localize key="AFAPP_Config.Description"></localize>
+                </div>
+                <div ng-switch="id">
+                    <form id="jsonStructure" ng-submit="genConfPost(JSONStructure)" role="form">
+                        <!-- SECTIONS -->
+                        <ul class="nav nav-tabs" style="margin: 0;">
+                            <li ng-class="{ 'active' : $index == 0 }" ng-repeat="section in JSONStructure">
+                                <a class="section{{ section.section | uppercase }}" data-toggle="tab" href="#section{{ section.section | uppercase }}"><strong>{{ section.section | uppercase }}</strong></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content actionsAccordion">
+                            <div id="section{{ section.section | uppercase }}" ng-class="$index == 0 ? 'tab-pane fade in active' : 'tab-pane fade'" ng-repeat="section in JSONStructure" ng-style="section.section == 'content' ? {'background-color':'#EBF5FB', 'padding':'10px'} : {'background-color':'#FDEDEC', 'padding':'10px'}">
+                                <!-- ACTIONS -->
+                                <div class="panel-group" id="{{ section.section | uppercase }}accordion" style="margin: 0;">
+                                    <div class="panel panel-primary" ng-repeat="action in section.actions">
+                                        <div class="panel-heading">
+                                            <div class="panel-title">
+                                                <a href="#{{ section.section | uppercase }}{{ action.action | uppercase }}" data-toggle="collapse" data-parent="#{{ section.section | uppercase }}accordion">Node Action: <strong>"{{ action.action | uppercase }}"</strong></a>
+                                            </div>
+                                        </div>
+                                        <div id="{{ section.section | uppercase }}{{ action.action | uppercase }}" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <!-- DOCTYPES -->
+                                                <div class="form-group doctypes" ng-repeat="doctype in action.doctypes" style="margin-bottom: 25px; border-bottom: 2px solid #a2a1a6;">
+                                                    <label for="doctypeAlias" style="display: table-cell;">Select a Doctype</label>
+                                                    <select ng-if="section.section == 'content'" ng-model="doctype.doctypeAlias" id="contenttypeAlias" name="contenttypeAlias" style="width: auto;">
+                                                        <option value="">all</option>
+                                                        <option ng-repeat="contenttype in allContentTypes" value="{{ contenttype }}">{{ contenttype }}</option>
+                                                    </select>
+                                                    <select ng-if="section.section == 'media'" ng-model="doctype.doctypeAlias" id="mediatypeAlias" name="mediatypeAlias" style="width: auto;">
+                                                        <option value="">all</option>
+                                                        <option ng-repeat="mediatype in allMediaTypes" value="{{ mediatype }}">{{ mediatype }}</option>
+                                                    </select>
+
+                                                    <button type="button" ng-click="AddNewProperty(section.section, action.action, doctype.doctypeAlias)" class="btn btn-info" style="margin-bottom: 10px;">Add New Property</button>
+                                                    <button type="button" ng-click="RemoveDoctype(section.section, action.action, doctype.doctypeAlias)" class="btn btn-danger" style="margin-bottom: 10px;">Remove this Doctype</button>
+
+                                                    <!-- PROPERTIES -->
+                                                    <div class="form-group properties" ng-repeat="property in doctype.properties" style="padding-top: 10px; padding-bottom: 10px;">
+                                                        <div class="table-responsive">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="text-align: center; width: 15%;">Property Alias</th>
+                                                                        <th style="text-align: center; width: 15%;">Property Type</th>
+                                                                        <th style="text-align: center; width: 15%;">Copy Value From</th>
+                                                                        <th style="text-align: center;">Default value</th>
+                                                                        <th style="text-align: center; width: 6%"></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="text-align: center;">
+                                                                            <select ng-if="section.section == 'content'" ng-model="property.propertyAlias" id="propertyAlias" name="propertyAlias" ng-options="property for property in allContentProperties track by property" style="width: 150px;">
+                                                                                <option style="display: none" value="">Select Property</option>
+                                                                            </select>
+                                                                            <select ng-if="section.section == 'media'" ng-model="property.propertyAlias" id="propertyAlias" name="propertyAlias" ng-options="property for property in allMediaProperties track by property" style="width: 150px;">
+                                                                                <option style="display: none" value="">Select Property</option>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td style="text-align: center;">
+                                                                            <select ng-model="property.config.propertyType" id="propertyType" name="propertyType" style="width: auto;">
+                                                                                <option style="display:none" value="">Select Type</option>
+                                                                                <option value="string" selected="selected">string</option>
+                                                                                <option value="datetime">datetime</option>
+                                                                                <option value="bool">bool</option>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td style="text-align: center;">
+                                                                            <select ng-if="section.section == 'content'" ng-model="property.config.propertyAliasToCopyValue" id="propertyAliasToCopyValue" name="propertyAliasToCopyValue" ng-options="propertyAliasToCopyValue for propertyAliasToCopyValue in allContentPropertiesToCopyValue track by propertyAliasToCopyValue" style="width: 150px;">
+                                                                                <option style="display: none;" value="">Select Property</option>
+                                                                            </select>
+                                                                            <select ng-if="section.section == 'media'" ng-model="property.config.propertyAliasToCopyValue" id="propertyAliasToCopyValue" name="propertyAliasToCopyValue" ng-options="propertyAliasToCopyValue for propertyAliasToCopyValue in allMediaPropertiesToCopyValue track by propertyAliasToCopyValue" style="width: 150px;">
+                                                                                <option style="display:none" value="">Select Property</option>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text" ng-model="property.config.defaultValue" id="defaultValue" name="defaultValue" style="width: 100%;" />
+                                                                        </td>
+                                                                        <td style="text-align: center; padding-right: 15px;"><a ng-click="RemoveProperty(section.section, action.action, doctype.doctypeAlias, property.propertyAlias)" class="btn btn-danger"><i class="icon-delete"></i></a></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="button" ng-click="AddNewDocType(section.section, action.action)" class="btn btn-info">Add New DocType</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success" style="margin-top: 10px;">Update JSON File</button>
+                    </form>
+                    <hr />
+                    <h4>Current JSON Structure (Live update)</h4>
+                    <pre>{{ JSONStructure }}</pre>
+                </div>
+            </div>
+        </umb-content>
+        <umb-footer id="afapp-footer"/>
+    </umb-panel>
+</div>

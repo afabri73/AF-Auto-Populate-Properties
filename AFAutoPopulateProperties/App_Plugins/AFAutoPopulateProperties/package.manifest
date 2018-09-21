@@ -1,0 +1,12 @@
+﻿{
+    "javascript": [
+        "~/App_Plugins/AFAutoPopulateProperties/backoffice/config/controller/afapp.controller.js",
+        "~/App_Plugins/AFAutoPopulateProperties/backoffice/config/resource/afapp.resource.js",
+        "~/App_Plugins/AFAutoPopulateProperties/backoffice/config/directive/afapp.directive.js",
+        "~/App_Plugins/AFAutoPopulateProperties/afapp.resource.js"
+    ],
+    "css": [
+        "~/App_Plugins/AFAutoPopulateProperties/backoffice/config/css/afappbootstrap.css",
+        "~/App_Plugins/AFAutoPopulateProperties/backoffice/config/css/afappstyle.css"
+    ]
+}

@@ -41,7 +41,7 @@ namespace AFUmbracoLibrary.Handlers
         /// <summary>
         /// APFConfiguration
         /// </summary>
-        protected List<AutoPopulateProperties> APP_JSONConfiguration = JsonConvert.DeserializeObject<List<AutoPopulateProperties>>(System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath("~/config/AF-AutoPopulateProperties.config.json")));
+        protected string AF_AutoPopulateProperties_ConfigFile = "~/config/AF-AutoPopulateProperties.config.json";
 
         /// <summary>
         /// AutoPopulatePropertiesEvents
@@ -66,7 +66,9 @@ namespace AFUmbracoLibrary.Handlers
         {
             try
             {
-                var APP_CreatedAction = APP_JSONConfiguration.Find(apfconfig => apfconfig.SectionName == "content").Actions.Find(apfsection => apfsection.ActionName == "Created");
+                List<AutoPopulateProperties> APP_JSONConfiguration = JsonConvert.DeserializeObject<List<AutoPopulateProperties>>(System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(AF_AutoPopulateProperties_ConfigFile)));
+
+                var APP_CreatedAction = APP_JSONConfiguration.Find(apfconfig => apfconfig.SectionName == "content").Actions.Find(apfsection => apfsection.ActionName == "created");
 
                 if ((APP_CreatedAction != null) && (APP_CreatedAction.Doctypes.Where(doc => doc.DoctypeAlias == contentEventArgs.Entity.ContentType.Alias || doc.DoctypeAlias == string.Empty).Count() > 0))
                 {
@@ -131,7 +133,9 @@ namespace AFUmbracoLibrary.Handlers
         {
             try
             {
-                var APP_SavingAction = APP_JSONConfiguration.Find(apfconfig => apfconfig.SectionName == "content").Actions.Find(apfsection => apfsection.ActionName == "Saving");
+                List<AutoPopulateProperties> APP_JSONConfiguration = JsonConvert.DeserializeObject<List<AutoPopulateProperties>>(System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(AF_AutoPopulateProperties_ConfigFile)));
+
+                var APP_SavingAction = APP_JSONConfiguration.Find(apfconfig => apfconfig.SectionName == "content").Actions.Find(apfsection => apfsection.ActionName == "saving");
 
                 if ((APP_SavingAction != null) && (APP_SavingAction.Doctypes.Count > 0))
                 {
@@ -221,6 +225,8 @@ namespace AFUmbracoLibrary.Handlers
         {
             try
             {
+                List<AutoPopulateProperties> APP_JSONConfiguration = JsonConvert.DeserializeObject<List<AutoPopulateProperties>>(System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(AF_AutoPopulateProperties_ConfigFile)));
+
                 var APP_CreatedAction = APP_JSONConfiguration.Find(apfconfig => apfconfig.SectionName == "media").Actions.Find(apfsection => apfsection.ActionName == "Created");
 
                 if ((APP_CreatedAction != null) && (APP_CreatedAction.Doctypes.Where(doc => doc.DoctypeAlias == mediaEventArgs.Entity.ContentType.Alias || doc.DoctypeAlias == string.Empty).Count() > 0))
@@ -285,6 +291,8 @@ namespace AFUmbracoLibrary.Handlers
         {
             try
             {
+                List<AutoPopulateProperties> APP_JSONConfiguration = JsonConvert.DeserializeObject<List<AutoPopulateProperties>>(System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(AF_AutoPopulateProperties_ConfigFile)));
+
                 var APP_SavingAction = APP_JSONConfiguration.Find(apfconfig => apfconfig.SectionName == "media").Actions.Find(apfsection => apfsection.ActionName == "Saving");
 
                 if ((APP_SavingAction != null) && (APP_SavingAction.Doctypes.Count > 0))

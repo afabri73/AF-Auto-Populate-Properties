@@ -45,21 +45,42 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\AFAutoPopulateProperties\backoffice\config\controller\afapp.controller.js" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\backoffice\config\css\afappbootstrap.css" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\backoffice\config\css\afappstyle.css" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\backoffice\config\css\img\searching.gif" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\backoffice\config\directive\afapp.directive.js" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\backoffice\config\edit.html" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\backoffice\config\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\backoffice\config\resource\afapp.resource.js" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\backoffice\config\view\afapp.html" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\afapp.resource.js" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\lang\en-GB.xml" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\lang\en-US.xml" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\lang\it-IT.xml" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\ConfigurationApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Handlers\AutoPopulatePropertiesEvents.cs" />
     <Compile Include="Models\AutoPopulatePropertiesModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Trees\TreeController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="config\AF-AutoPopulateProperties.config.json" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\package.manifest" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\backoffice\config\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\backoffice\config\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\backoffice\config\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="App_Plugins\AFAutoPopulateProperties\backoffice\config\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -79,6 +100,10 @@
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -131,8 +156,8 @@
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.3.2\build\Microsoft.Net.Compilers.props'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetDir)AFAutoPopulateProperties*.*" "$(ProjectDir)\..\umbraco.web\bin" /y
-xcopy "$(TargetDir)..\config\AF-AutoPopulateProperties.config.*" "$(ProjectDir)\..\umbraco.web\config" /y</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

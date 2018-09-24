@@ -1,10 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<language alias="en" intName="English (UK)" localName="English (UK)" lcid="" culture="en-GB">
+<language alias="en-GB" intName="English (UK)" localName="English (UK)" lcid="" culture="en-GB">
     <creator>
         <name>Adriano Fabri</name>
         <link>https://our.umbraco.org/projects/backoffice-extensions/af-auto-populate-properties/</link>
     </creator>
+    <area alias="sections">
+      <key alias="AFAutoPopulateProperties"><![CDATA[AFAPP]]></key>
+    </area>
     <area alias="AFAPP">
+        <!-- DASHBOARD -->
+        <key alias="Dashboard.Title"><![CDATA[Auto Populate Properties]]></key>
+        <key alias="Dashboard.SubTitle"><![CDATA[This is an Umbraco extension that allow developers to configure which document type and/or media type properties must be auto-populate on creation and on saving actions.]]></key>
+        <key alias="Dashboard.Description"><![CDATA[<p>For each document and/or media types, the developers must specify wich properties must be auto populate and how.</p>
+<p>The default configuration file ("AF-AutoPopulateProperties.config.json") is stored in the config folder, it contains a basic configuration that is already working.</p>
+<p>JSON structure:</p>
+<ul>
+    <li>Property "section": "content" or "media"</li>
+    <li>Property "action": "created" or "saving"</li>
+    <li>Property "doctypeAlias": if the value is empty the action will be applied to all doctypes otherwise the action will be applied only to the specified doctype</li>
+    <li>Property "propertyAlias": Property to auto populate</li>
+    <li>Property "propertyType": Property type (actually the value accepted are only string, datetime or bool)</li>
+    <li>Property "propertyAliasToCopyValue": The property from which to copy the value (valid only for "saving" action)</li>
+    <li>Property "defaultValue": the default value</li>
+</ul>]]></key>
+        <key alias="Dashboard.LatestChanges"></key>
+        <key alias="Dashboard.VersionHistory"><![CDATA[<p><strong>Version History<br /></strong>=============</p>
+<ul>
+	<li>v7.3.0.0 - For Umbraco v7.6+</li>
+</ul>]]></key>
+        
+        <!-- CONFIG -->
+        <key alias="Config.TreeSection"><![CDATA[Configuration]]></key>
         <key alias="Config.PageTitle"><![CDATA[AF - Auto Populate Properties]]></key>
         <key alias="Config.Title"><![CDATA[Configuration Manager]]></key>
         <key alias="Config.SubTitle"><![CDATA[ ]]></key>

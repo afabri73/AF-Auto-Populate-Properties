@@ -4,7 +4,33 @@
         <name>Adriano Fabri</name>
         <link>https://our.umbraco.org/projects/backoffice-extensions/af-auto-populate-properties/</link>
     </creator>
+    <area alias="sections">
+      <key alias="AFAutoPopulateProperties"><![CDATA[AFAPP]]></key>
+    </area>
     <area alias="AFAPP">
+        <!-- DASHBOARD -->
+        <key alias="Dashboard.Title"><![CDATA[Auto Populate Properties]]></key>
+        <key alias="Dashboard.SubTitle"><![CDATA[Questa è un'estensione di Umbraco che consente agli sviluppatori di configurare quali proprietà, dei document type e/o dei media type, devono essere popolate automaticamente in fase di crezione e/o salvataggio di un nuovo nodo.]]></key>
+        <key alias="Dashboard.Description"><![CDATA[<p>Per ogni document type e/o media type, gli sviluppatori devono specificare quali proprietà devono essere popolate automaticamente e come.</p>
+<p>Il file di configurazione di default ("AF-AutoPopulateProperties.config.json") si trova nella cartella "config" e contiene una configurazione di base che è già funzionante.</p>
+<p>Struttura del JSON:</p>
+<ul>
+    <li>Proprietà "section": "content" or "media"</li>
+    <li>Proprietà "action": "created" or "saving"</li>
+    <li>Proprietà "doctypeAlias": se il valore viene lasciato vuoto, l'azione verrà applicata a tutti i doctype/mediatype altrimenti solo al doctype/mediatype specificato</li>
+    <li>Proprietà "propertyAlias": Proprietà da popolare automaticamente</li>
+    <li>Proprietà "propertyType": Tipo di proprietà (attualmente i valori accettati sono solamente: string, datetime e bool)</li>
+    <li>Proprietà "propertyAliasToCopyValue": proprietà dalla quale copiare il valore (valido esclusivamente al salvataggio del nodo)</li>
+    <li>Proprietà "defaultValue": Valore di default</li>
+</ul>]]></key>
+        <key alias="Dashboard.LatestChanges"></key>
+        <key alias="Dashboard.VersionHistory"><![CDATA[<p><strong>Cronologia delle Versioni<br /></strong>=============</p>
+<ul>
+	<li>v7.3.0.0 - For Umbraco v7.6+</li>
+</ul>]]></key>
+        
+        <!-- CONFIG -->
+        <key alias="Config.TreeSection"><![CDATA[Configurazione]]></key>
         <key alias="Config.PageTitle"><![CDATA[AF - Auto Populate Properties]]></key>
         <key alias="Config.Title"><![CDATA[Configuration Manager]]></key>
         <key alias="Config.SubTitle"><![CDATA[ ]]></key>

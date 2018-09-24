@@ -1,4 +1,4 @@
-﻿using AFUmbracoLibrary.Models;
+﻿using AF.AutoPopulateProperties.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,44 +9,30 @@ using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace AFUmbracoLibrary.Handlers
+namespace AF.AutoPopulateProperties.Handlers
 {
     /// <summary>
     /// AutoPopulatePropertiesEvents : IApplicationEventHandler
     /// This Handler allows to update the properties specified in ~/config/AFUmbracoLibrary-APF.config.json
     /// </summary>
-    public class AutoPopulatePropertiesEvents : IApplicationEventHandler
+    public class APPRegisterEvents : ApplicationEventHandler
     {
         /// <summary>
-        /// OnApplicationInitialized
-        /// </summary>
-        /// <param name="umbracoApplication"></param>
-        /// <param name="applicationContext"></param>
-        public void OnApplicationInitialized(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext) { }
-
-        /// <summary>
-        /// OnApplicationStarted
-        /// </summary>
-        /// <param name="umbracoApplication"></param>
-        /// <param name="applicationContext"></param>
-        public void OnApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext) { }
-
-        /// <summary>
-        /// OnApplicationStarting
-        /// </summary>
-        /// <param name="umbracoApplication"></param>
-        /// <param name="applicationContext"></param>
-        public void OnApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext) { }
-
-        /// <summary>
-        /// APFConfiguration
+        /// APP Configuration File
         /// </summary>
         protected string AF_AutoPopulateProperties_ConfigFile = "~/config/AF-AutoPopulateProperties.config.json";
 
         /// <summary>
-        /// AutoPopulatePropertiesEvents
+        /// Create the AFAPP custom routes on application started
         /// </summary>
-        public AutoPopulatePropertiesEvents()
+        /// <param name="umbracoApplication"></param>
+        /// <param name="applicationContext"></param>
+        protected override void ApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext) { }
+
+        /// <summary>
+        /// APPRegisterEvents
+        /// </summary>
+        public APPRegisterEvents()
         {
             // Handlers for Umbraco Content Section
             ContentService.Created += new TypedEventHandler<IContentService, NewEventArgs<IContent>>(ContentService_Created);
@@ -66,7 +52,7 @@ namespace AFUmbracoLibrary.Handlers
         {
             try
             {
-                List<AutoPopulateProperties> APP_JSONConfiguration = JsonConvert.DeserializeObject<List<AutoPopulateProperties>>(System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(AF_AutoPopulateProperties_ConfigFile)));
+                List<AutoPopulatePropertiesModel> APP_JSONConfiguration = JsonConvert.DeserializeObject<List<AutoPopulatePropertiesModel>>(System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(AF_AutoPopulateProperties_ConfigFile)));
 
                 var APP_CreatedAction = APP_JSONConfiguration.Find(apfconfig => apfconfig.SectionName == "content").Actions.Find(apfsection => apfsection.ActionName == "created");
 
@@ -133,7 +119,7 @@ namespace AFUmbracoLibrary.Handlers
         {
             try
             {
-                List<AutoPopulateProperties> APP_JSONConfiguration = JsonConvert.DeserializeObject<List<AutoPopulateProperties>>(System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(AF_AutoPopulateProperties_ConfigFile)));
+                List<AutoPopulatePropertiesModel> APP_JSONConfiguration = JsonConvert.DeserializeObject<List<AutoPopulatePropertiesModel>>(System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(AF_AutoPopulateProperties_ConfigFile)));
 
                 var APP_SavingAction = APP_JSONConfiguration.Find(apfconfig => apfconfig.SectionName == "content").Actions.Find(apfsection => apfsection.ActionName == "saving");
 
@@ -225,7 +211,7 @@ namespace AFUmbracoLibrary.Handlers
         {
             try
             {
-                List<AutoPopulateProperties> APP_JSONConfiguration = JsonConvert.DeserializeObject<List<AutoPopulateProperties>>(System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(AF_AutoPopulateProperties_ConfigFile)));
+                List<AutoPopulatePropertiesModel> APP_JSONConfiguration = JsonConvert.DeserializeObject<List<AutoPopulatePropertiesModel>>(System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(AF_AutoPopulateProperties_ConfigFile)));
 
                 var APP_CreatedAction = APP_JSONConfiguration.Find(apfconfig => apfconfig.SectionName == "media").Actions.Find(apfsection => apfsection.ActionName == "Created");
 
@@ -291,7 +277,7 @@ namespace AFUmbracoLibrary.Handlers
         {
             try
             {
-                List<AutoPopulateProperties> APP_JSONConfiguration = JsonConvert.DeserializeObject<List<AutoPopulateProperties>>(System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(AF_AutoPopulateProperties_ConfigFile)));
+                List<AutoPopulatePropertiesModel> APP_JSONConfiguration = JsonConvert.DeserializeObject<List<AutoPopulatePropertiesModel>>(System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(AF_AutoPopulateProperties_ConfigFile)));
 
                 var APP_SavingAction = APP_JSONConfiguration.Find(apfconfig => apfconfig.SectionName == "media").Actions.Find(apfsection => apfsection.ActionName == "Saving");
 

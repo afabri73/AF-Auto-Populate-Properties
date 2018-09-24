@@ -1,5 +1,5 @@
 ﻿// AFUmbracoLibrary
-using AFUmbracoLibrary.Models;
+using AF.AutoPopulateProperties.Models;
 //SYSTEM
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -15,7 +15,7 @@ using Umbraco.Web.Editors;
 using Umbraco.Web.Mvc;
 using Umbraco.Web.WebApi;
 
-namespace AFUmbracoLibrary.Controllers
+namespace AF.AutoPopulateProperties.Controllers
 {
     /// <summary>
     /// 
@@ -33,13 +33,13 @@ namespace AFUmbracoLibrary.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public List<AutoPopulateProperties> GetJSONConfiguration()
+        public List<AutoPopulatePropertiesModel> GetJSONConfiguration()
         {
             try
             {
                 var jsonConfigFilePath = HttpContext.Current.Server.MapPath(jsonConfigFileURL);
                 var jsonConfigFile = File.ReadAllText(jsonConfigFilePath);
-                List<AutoPopulateProperties> jsonStructure = JsonConvert.DeserializeObject<List<AutoPopulateProperties>>(jsonConfigFile);
+                List<AutoPopulatePropertiesModel> jsonStructure = JsonConvert.DeserializeObject<List<AutoPopulatePropertiesModel>>(jsonConfigFile);
 
                 foreach (var section in jsonStructure)
                 {

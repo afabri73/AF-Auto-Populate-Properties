@@ -4,20 +4,21 @@ using System.Globalization;
 using System.Net.Http.Formatting;
 using System.Web;
 // UMBRACO
+using AF.AutoPopulateProperties.Constants;
 using Umbraco.Core;
 using Umbraco.Web;
 using Umbraco.Web.Models.Trees;
 using Umbraco.Web.Mvc;
 using Umbraco.Web.Trees;
 
-namespace AFUmbracoLibrary
+namespace AF.AutoPopulateProperties.Trees
 {
     /// <summary>
     /// Tree(APPConstants.Application.Alias, APPConstants.Tree.Alias, APPConstants.Tree.Title)
     /// PluginController(APPConstants.Controller.Alias)
     /// APPTreeController
     /// </summary>
-    [Tree("developer", APPConstants.Tree.ParentAlias, APPConstants.Tree.Title, "icon-autofill color-red", "icon-autofill color-red", true, 100)]
+    [Tree(APPConstants.Application.Alias, APPConstants.Tree.Alias, APPConstants.Tree.Title)]
     [PluginController(APPConstants.Controller.Alias)]
     public class APPTreeController : TreeController
     {
@@ -30,11 +31,14 @@ namespace AFUmbracoLibrary
         /// <returns>tree</returns>
         protected override TreeNodeCollection GetTreeNodes(string id, FormDataCollection queryStrings)
         {
+            var tree = new TreeNodeCollection();
+            var textService = ApplicationContext.Services.TextService;
+
             // check if we're rendering the root node's children
-            if (id == Constants.System.Root.ToInvariantString())
+            if (id == global::Umbraco.Core.Constants.System.Root.ToInvariantString())
             {
-                var tree = new TreeNodeCollection {
-                    CreateTreeNode(APPConstants.Tree.Alias, "-1", queryStrings, APPConstants.Tree.Action, APPConstants.Tree.Icon, false)
+                tree = new TreeNodeCollection {
+                    CreateTreeNode("config", "-1", queryStrings, textService.Localize("AFAPP/Config.TreeSection", CultureInfo.CurrentCulture), APPConstants.Tree.Icon, false)
                 };
 
                 return tree;

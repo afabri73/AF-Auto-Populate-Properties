@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace AFUmbracoLibrary.Models
+namespace AF.AutoPopulateProperties.Models
 {
     /// <summary>Config Model</summary>
     public class Config
@@ -54,7 +54,7 @@ namespace AFUmbracoLibrary.Models
     }
 
     /// <summary>AutoPopulateProperties Model</summary>
-    public class AutoPopulateProperties
+    public class AutoPopulatePropertiesModel
     {
         /// <summary>SectionName</summary>
         [JsonProperty("section")]

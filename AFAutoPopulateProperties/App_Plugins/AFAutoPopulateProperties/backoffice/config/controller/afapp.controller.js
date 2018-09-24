@@ -1,9 +1,18 @@
 ﻿'use strict';
 (function () {
     // Create Edit controller
-    function AFAPPJSONConfig($route, $scope, $http, $routeParams, afappResource, notificationsService, localizationService, eventsService) {
+    function AFAPPJSONConfig($route, $scope, $http, appState, treeService, navigationService, $routeParams, afappResource, notificationsService, localizationService, eventsService) {
         // Set a property on the scope equal to the current route id
         $scope.id = $routeParams.id;
+
+        // TREE NODE HIGHLIGHT
+        var activeNode = appState.getTreeState("selectedNode");
+        if (activeNode) {
+            var activeNodePath = treeService.getPath(activeNode).join();
+            navigationService.syncTree({ tree: $routeParams.tree, path: activeNodePath, forceReload: false, activate: true });
+        } else {
+            navigationService.syncTree({ tree: $routeParams.tree, path: ["-1", "cachetemp", $routeParams.id], forceReload: false, activate: true });
+        }
 
         // Reload page function
         $scope.reloadRoute = function () {

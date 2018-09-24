@@ -1,0 +1,28 @@
+﻿<script>
+    'use strict';
+    // Create Dasboard controller
+    function AFAutoPopulatePropertiesDashboardController($scope, $routeParams) {
+        // Set a property on the scope equal to the current route id
+        $scope.id = $routeParams.id;
+    }
+</script>
+
+<div ng-controller="AFAutoPopulatePropertiesDashboardController">
+    <umb-panel>
+        <umb-content id="afapp-content">
+            <div class="umb-panel-body no-header umb-scrollable with-footer" style="padding: 0 20px;">
+                <h3 class="title"><localize key="AFAPP_Dashboard.Title">Auto Populate Properties</localize></h3>
+                <div class="subtitle">
+                    <localize key="AFAPP_Dashboard.SubTitle">This is an Umbraco extension that allow developers to configure which document type and/or media type properties must be auto-populate on creation and on saving actions.</localize>
+                </div>
+                <div class="description">
+                    <localize key="AFAPP_Dashboard.Description">For each document and/or media types, the developers must specify wich properties must be auto populate and how.<br />
+The default configuration file ("AF-AutoPopulateProperties.config.json") is stored in the config folder, it contains a basic configuration that is already working.</localize>
+                </div>
+                <div class="infoBox">
+                    <localize key="AFAPP_Dashboard.VersionHistory">Version History</localize>
+                </div>
+            </div>
+        </umb-content>
+    </umb-panel>
+</div>

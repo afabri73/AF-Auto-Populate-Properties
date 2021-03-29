@@ -34,7 +34,7 @@
         <key alias="Dashboard.LatestChanges"><![CDATA[Cronologia delle Versioni]]></key>
         <key alias="Dashboard.VersionHistory"><![CDATA[<ul>
     <li>v8.0.0.0 - For Umbraco v8.10+ (non testato con versioni precedenti)</li>
-	<li>v7.3.0.0 - For Umbraco v7.6+</li>
+	<li>v7.3.0.0 - For Umbraco v7.7+</li>
 </ul>]]></key>
         
         <!-- CONFIG -->

@@ -43,7 +43,7 @@ The Auto Populate Properties function now only occurs during the Saving Action</
         <key alias="Dashboard.VersionHistoryTitle"><![CDATA[Version History]]></key>
         <key alias="Dashboard.VersionHistoryDescription"><![CDATA[<ul>
 	<li>v8.0.0.0 - For Umbraco v8.10+ (not tested with previous versions)</li>
-    <li>v7.3.0.0 - For Umbraco v7.6+</li>
+    <li>v7.3.0.0 - For Umbraco v7.7+</li>
 </ul>]]>
         </key>
 

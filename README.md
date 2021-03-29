@@ -1,5 +1,5 @@
 **AF - AUTO POPULATE PROPERTIES**
-=============================
+=================================
 
 This is an Umbraco extension that allow developers to configure which document type and/or media type properties must be auto-populate on saving actions.
 For each document and/or media types, the developers must specify wich properties must be auto populate and how.
@@ -21,7 +21,7 @@ JSON structure:
 - Property "propertyAliasToCopyValue": The property from which to copy the value (valid only for "saving" action)
 - Property "defaultValue": the default value
 
-**_WARNING: This Package override previous version of "AF-AutoPopulateProperties.config.json".
+**_WARNING: This Package override previous version of "afapp.config.json".
 Before install this package, be sure to backup this config file and uninstall all previous versions of the package_**
 
 **Latest Changes**

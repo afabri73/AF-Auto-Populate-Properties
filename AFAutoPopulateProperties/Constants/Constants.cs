@@ -11,13 +11,13 @@
         public class Application
         {
             /// <summary>Name of the Application</summary>
-            public const string Name = "A.F.";
+            public const string Name = "AFAPP";
             /// <summary>Alias of the Application</summary>
             public const string Alias = "AFAutoPopulateProperties";
             /// <summary>Icon of the Application</summary>
             public const string Icon = "icon-autofill";
             /// <summary>Title of the Application</summary>
-            public const string Title = "AF - Auto Populate Properties";
+            public const string Title = "AF - Auto Populate Properties (v8)";
         }
 
         /// <summary>
@@ -32,7 +32,9 @@
             /// <summary>Icon of the Tree</summary>
             public const string Icon   = "icon-console color-orange";
             /// <summary>Title of the Tree</summary>
-            public const string Title  = "AF - Auto Populate Properties";
+            public const string Title  = "AF - Auto Populate Properties (v8)";
+            /// <summary>Group Title of the Tree</summary>
+            public const string GroupTitle = "AFAPP";
         }
 
         /// <summary>

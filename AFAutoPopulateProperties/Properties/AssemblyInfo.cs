@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set di attributi. Modificare i valori di questi attributi per modificare le informazioni
 // associate a un assembly.
 [assembly: AssemblyTitle("AF - Auto Populate Properties")]
-[assembly: AssemblyDescription("This package auto-populate fields specified in the json file (for Umbraco v7+)")]
+[assembly: AssemblyDescription("This package auto-populate fields specified in the json file (for Umbraco v8+)")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("AF Auto Populate Properties")]
-[assembly: AssemblyCopyright("Copyright by Adriano Fabri ©2018")]
+[assembly: AssemblyCopyright("Copyright by Adriano Fabri ©2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 //
 // È possibile specificare tutti i valori oppure impostare valori predefiniti per i numeri relativi alla revisione e alla build 
 // utilizzando l'asterisco (*) come illustrato di seguito:
-[assembly: AssemblyVersion("7.3.0.0")]
-[assembly: AssemblyFileVersion("7.3.0.0")]
+[assembly: AssemblyVersion("8.0.0.0")]
+[assembly: AssemblyFileVersion("8.0.0.0")]

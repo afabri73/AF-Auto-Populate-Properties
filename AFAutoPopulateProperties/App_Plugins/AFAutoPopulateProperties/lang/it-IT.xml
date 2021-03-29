@@ -9,23 +9,31 @@
     </area>
     <area alias="AFAPP">
         <!-- DASHBOARD -->
-        <key alias="Dashboard.Title"><![CDATA[Auto Populate Properties]]></key>
-        <key alias="Dashboard.SubTitle"><![CDATA[Questa è un'estensione di Umbraco che consente agli sviluppatori di configurare quali proprietà, dei document type e/o dei media type, devono essere popolate automaticamente in fase di crezione e/o salvataggio di un nuovo nodo.]]></key>
-        <key alias="Dashboard.Description"><![CDATA[<p>Per ogni document type e/o media type, gli sviluppatori devono specificare quali proprietà devono essere popolate automaticamente e come.</p>
-<p>Il file di configurazione di default ("AF-AutoPopulateProperties.config.json") si trova nella cartella "config" e contiene una configurazione di base che è già funzionante.</p>
+        <key alias="Dashboard.Title"><![CDATA[Auto Populate Properties - Panoramica]]></key>
+        <key alias="Dashboard.SubTitle"><![CDATA[ ]]></key>
+        <key alias="Dashboard.Description"><![CDATA[<p>Questa è un'estensione di Umbraco che consente agli sviluppatori di configurare quali proprietà, dei document type e/o dei media type, devono essere popolate automaticamente in fase salvataggio di un nuovo nodo.</p>
+<p>Per ogni document type e/o media type, gli sviluppatori devono specificare quali proprietà devono essere popolate automaticamente e come.</p>
+<p>Il file di configurazione di default ("afapp.config.json") si trova nella cartella "\App_Plugins\AFAutoPopulateProperties\" e contiene una configurazione di base che è già funzionante.</p>
 <p>Struttura del JSON:</p>
 <ul>
-    <li>Proprietà "section": "content" or "media"</li>
-    <li>Proprietà "action": "created" or "saving"</li>
+    <li>Proprietà "name": è il nome della funzionalità AFAPP (non può essere lasciato vuoto)</li>
+    <li>Proprietà "tabs": sono le sezioni alle quali verrà applicata la funzionalità di autopopolamento delle proprietà ("Content" e "Media")</li>
+    <li>Proprietà "id": id della sezione</li>
+    <li>Proprietà "sectionName": nome della sezione ("content" or "media")</li>
+    <li>Proprietà "label": nome visualizzato nel tab relativo alla sezione</li>
+    <li>Proprietà "alias": alias della sezione</li>
+    <li>Proprietà "active": se impostato a true, indica che questo è il tab attivo</li>
+    <li>Proprietà "actions": contiene la lista della actions a cui verrà applicata la funzionalità di auto popolamento</li>
+    <li>Proprietà "action": in accordo con le direttive umbraco, la funzionalità "created" è stata rimossa pertanto la funzione di auto popolamento delle proprietà avverrà solamente durante l'operazione di salvataggio ("saving")</li>
     <li>Proprietà "doctypeAlias": se il valore viene lasciato vuoto, l'azione verrà applicata a tutti i doctype/mediatype altrimenti solo al doctype/mediatype specificato</li>
     <li>Proprietà "propertyAlias": Proprietà da popolare automaticamente</li>
     <li>Proprietà "propertyType": Tipo di proprietà (attualmente i valori accettati sono solamente: string, datetime e bool)</li>
     <li>Proprietà "propertyAliasToCopyValue": proprietà dalla quale copiare il valore (valido esclusivamente al salvataggio del nodo)</li>
     <li>Proprietà "defaultValue": Valore di default</li>
 </ul>]]></key>
-        <key alias="Dashboard.LatestChanges"></key>
-        <key alias="Dashboard.VersionHistory"><![CDATA[<p><strong>Cronologia delle Versioni<br /></strong>=============</p>
-<ul>
+        <key alias="Dashboard.LatestChanges"><![CDATA[Cronologia delle Versioni]]></key>
+        <key alias="Dashboard.VersionHistory"><![CDATA[<ul>
+    <li>v8.0.0.0 - For Umbraco v8.10+ (non testato con versioni precedenti)</li>
 	<li>v7.3.0.0 - For Umbraco v7.6+</li>
 </ul>]]></key>
         
@@ -34,10 +42,14 @@
         <key alias="Config.PageTitle"><![CDATA[AF - Auto Populate Properties]]></key>
         <key alias="Config.Title"><![CDATA[Configuration Manager]]></key>
         <key alias="Config.SubTitle"><![CDATA[ ]]></key>
-        <key alias="Config.Description"><![CDATA[With this tool you can create the JSON Structure with a simple GUI]]></key>
+        <key alias="Config.Description"><![CDATA[Con questo tool, puoi creare la struttura JSON utilizzando un'interfaccia molto semplice e intuitiva]]></key>
         <key alias="Config.ContentSection.PanelTitle"><![CDATA[Section: CONTENT]]></key>
         <key alias="Config.ContentSection.PanelFooter"><![CDATA[ ]]></key>
         <key alias="Config.MediaSection.PanelTitle"><![CDATA[Section: MEDIA]]></key>
         <key alias="Config.MediaSection.PanelFooter"><![CDATA[ ]]></key>
+        <key alias="Config.UpdateJSON.Success.Headline"><![CDATA[Aggiornamento Configurazione]]></key>
+        <key alias="Config.UpdateJSON.Success.Message"><![CDATA[Il file JSON è stato aggiornato]]></key>
+        <key alias="Config.UpdateJSON.Error.Headline"><![CDATA[Aggiornamento Configurazione]]></key>
+        <key alias="Config.UpdateJSON.Error.Message"><![CDATA[E' stato riscontrato un errore durante l'operazione di salvataggio]]></key>
     </area>
 </language>

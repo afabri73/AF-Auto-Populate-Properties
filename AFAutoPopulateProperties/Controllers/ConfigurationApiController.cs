@@ -26,7 +26,7 @@ namespace AF.AutoPopulateProperties.Controllers
         /// <summary>
         /// AF Auto Populate Properties config file path (relative)
         /// </summary>
-        protected string jsonConfigFileURL = "~/config/AF-AutoPopulateProperties.config.json";
+        protected string jsonConfigFileURL = "~/App_Plugins/AFAutoPopulateProperties/afapp.config.json";
 
         /// <summary>
         /// GetJSONConfiguration
@@ -41,15 +41,27 @@ namespace AF.AutoPopulateProperties.Controllers
                 var jsonConfigFile = File.ReadAllText(jsonConfigFilePath);
                 List<AutoPopulatePropertiesModel> jsonStructure = JsonConvert.DeserializeObject<List<AutoPopulatePropertiesModel>>(jsonConfigFile);
 
-                foreach (var section in jsonStructure)
+                foreach (var item in jsonStructure)
                 {
-                    foreach (var action in section.Actions)
+                    if (item.Tabs.Count != 0)
                     {
-                        foreach (var doctype in action.Doctypes)
+                        foreach (var section in item.Tabs.OrderBy(o => o.SectionName))
                         {
-                            if (doctype.DoctypeAlias == "all")
+                            if (section.Actions.Count != 0)
                             {
-                                doctype.DoctypeAlias = "";
+                                foreach (var action in section.Actions)
+                                {
+                                    if (action.Doctypes.Count != 0)
+                                    {
+                                        foreach (var doctype in action.Doctypes)
+                                        {
+                                            if (doctype.DoctypeAlias == "all")
+                                            {
+                                                doctype.DoctypeAlias = "";
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -74,7 +86,7 @@ namespace AF.AutoPopulateProperties.Controllers
             var contentTypeService = Services.ContentTypeService;
             var documentTypes = new List<string>();
 
-            foreach (var documentType in contentTypeService.GetAllContentTypes().OrderBy(d => d.Name))
+            foreach (var documentType in contentTypeService.GetAll().OrderBy(d => d.Name))
             {
                 documentTypes.Add(documentType.Alias);
             }
@@ -90,9 +102,10 @@ namespace AF.AutoPopulateProperties.Controllers
         public List<string> GetAllMediaTypes()
         {
             var contentTypeService = Services.ContentTypeService;
+            var mediaTypeService = Services.MediaTypeService;
             var mediaTypes = new List<string>();
 
-            foreach (var mediaType in contentTypeService.GetAllMediaTypes().OrderBy(d => d.Name))
+            foreach (var mediaType in mediaTypeService.GetAll().OrderBy(d => d.Name))
             {
                 mediaTypes.Add(mediaType.Alias);
             }
@@ -109,12 +122,13 @@ namespace AF.AutoPopulateProperties.Controllers
         public List<string> GetAllProperties(string section)
         {
             var contentTypeService = Services.ContentTypeService;
+            var mediaTypeService = Services.MediaTypeService;
             var allProperties = new List<string>();
 
             switch (section)
             {
                 case "content":
-                    foreach (var contentItem in contentTypeService.GetAllContentTypes().OrderBy(d => d.Name))
+                    foreach (var contentItem in contentTypeService.GetAll().OrderBy(d => d.Name))
                     {
                         var allContentTypeProperties = GetPropertiesByContentType(section, contentItem.Id);
 
@@ -123,7 +137,7 @@ namespace AF.AutoPopulateProperties.Controllers
                     break;
 
                 case "media":
-                    foreach (var mediaItem in contentTypeService.GetAllMediaTypes().OrderBy(d => d.Name))
+                    foreach (var mediaItem in mediaTypeService.GetAll().OrderBy(d => d.Name))
                     {
                         var allContentTypeProperties = GetPropertiesByContentType(section, mediaItem.Id);
 
@@ -144,7 +158,7 @@ namespace AF.AutoPopulateProperties.Controllers
         [HttpGet]
         public List<string> GetPropertiesByContentType(string section, int contentTypeId)
         {
-            var propertyTypes = section == "content" ? Services.ContentTypeService.GetContentType(contentTypeId).PropertyTypes : Services.ContentTypeService.GetMediaType(contentTypeId).PropertyTypes;
+            var propertyTypes = section == "content" ? Services.ContentTypeService.Get(contentTypeId).PropertyTypes : Services.MediaTypeService.Get(contentTypeId).PropertyTypes;
 
             var properties = new List<string>();
 
@@ -166,11 +180,9 @@ namespace AF.AutoPopulateProperties.Controllers
         {
             try
             {
-                var jsonString = customJsonConfiguration.ToString();
-
                 var jsonConfigFilePath = HttpContext.Current.Server.MapPath(jsonConfigFileURL);
 
-                var jsonSerialized = JsonConvert.SerializeObject(customJsonConfiguration);
+                var jsonSerialized = $"[{ JsonConvert.SerializeObject(customJsonConfiguration, Formatting.Indented) }]";
 
                 File.WriteAllText(jsonConfigFilePath, jsonSerialized);
 
@@ -179,7 +191,8 @@ namespace AF.AutoPopulateProperties.Controllers
             }
             catch (Exception ex)
             {
-                LogHelper.Error<Exception>(ex.Message, ex);
+                Logger.Error<ConfigurationApiController>(ex.Message, ex);
+
                 return false;
             }
 }

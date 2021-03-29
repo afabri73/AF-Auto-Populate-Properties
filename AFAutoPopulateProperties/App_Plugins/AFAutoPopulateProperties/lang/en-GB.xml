@@ -5,30 +5,48 @@
         <link>https://our.umbraco.org/projects/backoffice-extensions/af-auto-populate-properties/</link>
     </creator>
     <area alias="sections">
-      <key alias="AFAutoPopulateProperties"><![CDATA[AFAPP]]></key>
+        <key alias="AFAutoPopulateProperties"><![CDATA[AF-APP]]></key>
     </area>
     <area alias="AFAPP">
         <!-- DASHBOARD -->
-        <key alias="Dashboard.Title"><![CDATA[Auto Populate Properties]]></key>
-        <key alias="Dashboard.SubTitle"><![CDATA[This is an Umbraco extension that allow developers to configure which document type and/or media type properties must be auto-populate on creation and on saving actions.]]></key>
-        <key alias="Dashboard.Description"><![CDATA[<p>For each document and/or media types, the developers must specify wich properties must be auto populate and how.</p>
-<p>The default configuration file ("AF-AutoPopulateProperties.config.json") is stored in the config folder, it contains a basic configuration that is already working.</p>
+        <key alias="Dashboard.Title"><![CDATA[Auto Populate Properties - Overview]]></key>
+        <key alias="Dashboard.SubTitle"><![CDATA[ ]]></key>
+        <key alias="Dashboard.Description">
+        <![CDATA[<p>This is an Umbraco extension that allow developers to configure which document type and/or media type properties must be auto-populate on saving actions.</p>
+<p>For each document and/or media types, the developers must specify wich properties must be auto populate and how.</p>
+<p>The default configuration file ("afapp.config.json") is stored in "\App_Plugins\AFAutoPopulateProperties\" folder, it contains a basic configuration that is already working.</p>
 <p>JSON structure:</p>
 <ul>
-    <li>Property "section": "content" or "media"</li>
-    <li>Property "action": "created" or "saving"</li>
+    <li>Property "name": the name of AFAPP function (cannot be empty)</li>
+    <li>Property "tabs": the sections to which the Aputo Populate Properties functionality will be applied ("Content" e "Media")</li>
+    <li>Property "id": section id</li>
+    <li>Property "sectionName": section name ("content" or "media")</li>
+    <li>Property "label": section tab name</li>
+    <li>Property "alias": section alias</li>
+    <li>Property "active": if true, set the tab active</li>
+    <li>Property "actions": contains the actions list to which the auto-populate functionality will be applied</li>
+    <li>Property "action": according to Umbraco directives, the Created Action ("created") has been removed therefore the Auto Populate Properties function now only occurs during the Saving Action ("saving")</li>
     <li>Property "doctypeAlias": if the value is empty the action will be applied to all doctypes otherwise the action will be applied only to the specified doctype</li>
     <li>Property "propertyAlias": Property to auto populate</li>
     <li>Property "propertyType": Property type (actually the value accepted are only string, datetime or bool)</li>
     <li>Property "propertyAliasToCopyValue": The property from which to copy the value (valid only for "saving" action)</li>
     <li>Property "defaultValue": the default value</li>
-</ul>]]></key>
-        <key alias="Dashboard.LatestChanges"></key>
-        <key alias="Dashboard.VersionHistory"><![CDATA[<p><strong>Version History<br /></strong>=============</p>
-<ul>
-	<li>v7.3.0.0 - For Umbraco v7.6+</li>
-</ul>]]></key>
-        
+</ul>]]>
+        </key>
+        <key alias="Dashboard.LatestChangesTitle"><![CDATA[Latest Changes]]></key>
+        <key alias="Dashboard.LatestChangesDescription"><![CDATA[<ul>
+	<li>v8.0.0.0 - Updated package to be compatible with Umbraco 8<br />
+According to Umbraco directives, the Creation Action has been removed<br />
+The Auto Populate Properties function now only occurs during the Saving Action</li>
+</ul>]]>
+        </key>
+        <key alias="Dashboard.VersionHistoryTitle"><![CDATA[Version History]]></key>
+        <key alias="Dashboard.VersionHistoryDescription"><![CDATA[<ul>
+	<li>v8.0.0.0 - For Umbraco v8.10+ (not tested with previous versions)</li>
+    <li>v7.3.0.0 - For Umbraco v7.6+</li>
+</ul>]]>
+        </key>
+
         <!-- CONFIG -->
         <key alias="Config.TreeSection"><![CDATA[Configuration]]></key>
         <key alias="Config.PageTitle"><![CDATA[AF - Auto Populate Properties]]></key>
@@ -39,5 +57,9 @@
         <key alias="Config.ContentSection.PanelFooter"><![CDATA[ ]]></key>
         <key alias="Config.MediaSection.PanelTitle"><![CDATA[Section: MEDIA]]></key>
         <key alias="Config.MediaSection.PanelFooter"><![CDATA[ ]]></key>
+        <key alias="Config.UpdateJSON.Success.Headline"><![CDATA[Update Configuration]]></key>
+        <key alias="Config.UpdateJSON.Success.Message"><![CDATA[The JSON File has been updated]]></key>
+        <key alias="Config.UpdateJSON.Error.Headline"><![CDATA[Update Configuration]]></key>
+        <key alias="Config.UpdateJSON.Error.Message"><![CDATA[An error encountered during saving operation]]></key>
     </area>
 </language>

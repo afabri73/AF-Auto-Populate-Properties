@@ -1,12 +1,26 @@
 ﻿{
+    "sections": [
+        {
+            "alias": "AFAutoPopulateProperties",
+            "name": "AFAPP"
+        }
+    ],
     "javascript": [
+        "~/App_Plugins/AFAutoPopulateProperties/backoffice/config/controller/dashboard.controller.js",
+        "~/App_Plugins/AFAutoPopulateProperties/afapp.resource.js",
         "~/App_Plugins/AFAutoPopulateProperties/backoffice/config/controller/afapp.controller.js",
         "~/App_Plugins/AFAutoPopulateProperties/backoffice/config/resource/afapp.resource.js",
-        "~/App_Plugins/AFAutoPopulateProperties/backoffice/config/directive/afapp.directive.js",
-        "~/App_Plugins/AFAutoPopulateProperties/afapp.resource.js"
+        "~/App_Plugins/AFAutoPopulateProperties/backoffice/config/directive/afapp.directive.js"
     ],
     "css": [
-        "~/App_Plugins/AFAutoPopulateProperties/backoffice/config/css/afappbootstrap.css",
         "~/App_Plugins/AFAutoPopulateProperties/backoffice/config/css/afappstyle.css"
+    ],
+    "dashboards": [
+        {
+            "alias": "AFAPPDashboard",
+            "view": "~/App_Plugins/AFAutoPopulateProperties/backoffice/config/view/dashboard.html",
+            "sections": [ "AFAutoPopulateProperties" ],
+            "weight": -10
+        }
     ]
 }

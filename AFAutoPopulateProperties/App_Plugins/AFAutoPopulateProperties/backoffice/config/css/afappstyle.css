@@ -1,88 +1,46 @@
 ﻿/*#########################################*/
 /* AF- Auto Populate Properties Stylesheet */
 /*#########################################*/
-#afapp-header h2.title {
-    font-size: 28px !important;
-    color: darkblue !important;
+/* UMB-TAB-NAV */
+.afapp-umb-tabs-nav {
 }
-#afapp-content h3.title {
-    font-size: 22px !important;
-    color: darkblue !important;
+.afapp-umb-tabs-nav .umb-tabs-nav {
+    margin: 0;
 }
-#afapp-content .description {
-    margin-top: 40px !important;
-    margin-bottom: 20px !important;
+.afapp-umb-tabs-nav .umb-tabs-nav .umb-tab {
+    border: 1px solid #e9e9eb;
+    background-color: #fff !important;
 }
-#afapp-content .infoBox {
-    margin-top: 40px !important;
-    margin-bottom: 20px !important;
+.afapp-umb-tabs-nav .umb-tab--active {
+    border-bottom: 1px solid #fff !important;
 }
-#afapp-content .infoBox .title {
-    font-weight: bold;
-    font-style: italic;
-    border-bottom: double;
+
+/* UMB-TAB-CONTENT */
+.afapp-umb-tabs-content {
 }
-#afapp-content .infoBox .text {
-    font-size: 12px;
+.afapp-umb-tabs-content > .umb-box {
+    border-top: none !important;
+    border-left: 1px solid #e9e9eb !important;
+    border-right: 1px solid #e9e9eb !important;
+    border-bottom: 1px solid #e9e9eb !important;
 }
-#afapp-content #infoTable {
-    margin-top: 30px;
+.afapp-umb-tabs-content .custom-tab-content {
+    border-right: 1px solid #e9e9eb;
+    border-bottom: 1px solid #e9e9eb;
+    border-left: 1px solid #e9e9eb;
+    background-color: #fff !important;
+    padding: 15px;
 }
-#afapp-content #orphansTable {
-    margin-top: 30px;
+.afapp-umb-tabs-content > .custom-tab-content > .umb-box {
+    border: none !important;
+    -webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
 }
-#afapp-content .noUserToDelete {
-    margin-top: 30px !important;
-    font-weight: bold !important;
+.afapp-umb-tabs-content .custom-tab-content .custom-tab-header {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
 }
-#afapp-content .userForm {
-    margin-top: 30px !important;
-}
-#afapp-content .form-control {
-    height: auto !important;
-}
-#afapp-content .table-striped > tbody > tr:nth-child(odd) > td,
-#afapp-content .table-striped > tbody > tr:nth-child(odd) > th {
-    background-color: #edf7ff;
-}
-#afapp-content .table-hover tbody tr:hover > td,
-#afapp-content .table-hover tbody tr:hover > th {
-    background-color: #f5f5f5;
-}
-#afapp-content tr[ng-click] {
-    cursor: pointer;
-}
-/* PAGINATION */
-#afapp-content .pagination-total-pages {
-    float: right;
-    color: #337ab7;
-    font-weight: bold;
-    margin: 30px 0;
-}
-/* OVERRIDE UMBRACO CLASSES */
-#afapp-footer .umb-panel-footer {
-    background: #f8f8f8;
-    border-top: 1px solid #d9d9d9;
-}
-/* FORM */
-#jsonStructure .actionsAccordion {
-    border-left: 1px solid #b3afbd;
-    margin: 0 0 10px 0;
-    padding: 0;
-    border-right: 1px solid #b3afbd;
-    border-bottom: 1px solid #b3afbd;
-}
-#jsonStructure ul li .sectionCONTENT {
-    background-color: #EBF5FB;
-    border-bottom: 1px solid #b3afbd;
-}
-#jsonStructure ul li .sectionMEDIA {
-    background-color: #FDEDEC;
-    border-bottom: 1px solid #b3afbd;
-}
-#jsonStructure .nav-tabs > .active > a,
-#jsonStructure .nav-tabs > .active > a:focus,
-#jsonStructure .nav-tabs > .active > a:hover {
-    border-bottom-color: transparent;
-    cursor: default;
+.afapp-umb-tabs-content .custom-tab-content .custom-umb-box-content {
+    padding-bottom: 0 !important;
 }

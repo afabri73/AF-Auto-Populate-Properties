@@ -9,9 +9,11 @@ namespace AF.AutoPopulateProperties.Models
         /// <summary>PropertyType</summary>
         [JsonProperty("propertyType")]
         public string PropertyType { get; set; }
+
         /// <summary>PropertyToCopy</summary>
         [JsonProperty("propertyAliasToCopyValue")]
         public string PropertyAliasToCopyValue { get; set; }
+
         /// <summary>
         /// DefaultValue
         /// For DateTime property type, the default value must be in this format: yyyy,mm,dd,hh,mm,ss
@@ -26,6 +28,7 @@ namespace AF.AutoPopulateProperties.Models
         /// <summary>PropertyName</summary>
         [JsonProperty("propertyAlias")]
         public string PropertyAlias { get; set; }
+
         /// <summary>Config</summary>
         [JsonProperty("config")]
         public Config Config { get; set; }
@@ -37,6 +40,7 @@ namespace AF.AutoPopulateProperties.Models
         /// <summary>DocTypeAlias</summary>
         [JsonProperty("doctypeAlias")]
         public string DoctypeAlias { get; set; }
+
         /// <summary>Properties</summary>
         [JsonProperty("properties")]
         public List<Property> Properties { get; set; }
@@ -48,19 +52,49 @@ namespace AF.AutoPopulateProperties.Models
         /// <summary>ActionName</summary>
         [JsonProperty("action")]
         public string ActionName { get; set; }
+
         /// <summary>DocTypes</summary>
         [JsonProperty("doctypes")]
         public List<Doctype> Doctypes { get; set; }
     }
 
-    /// <summary>AutoPopulateProperties Model</summary>
-    public class AutoPopulatePropertiesModel
+    /// <summary>Section</summary>
+    public class Section
     {
         /// <summary>SectionName</summary>
-        [JsonProperty("section")]
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        /// <summary>section</summary>
+        [JsonProperty("sectionName")]
         public string SectionName { get; set; }
+
+        /// <summary>label</summary>
+        [JsonProperty("label")]
+        public string Label { get; set; }
+
+        /// <summary>alias</summary>
+        [JsonProperty("alias")]
+        public string Alias { get; set; }
+
+        /// <summary>active</summary>
+        [JsonProperty("active")]
+        public bool Active { get; set; }
+
         /// <summary>Actions</summary>
         [JsonProperty("actions")]
         public List<Action> Actions { get; set; }
+    }
+
+    /// <summary>AutoPopulateProperties Model</summary>
+    public class AutoPopulatePropertiesModel
+    {
+        /// <summary>name</summary>
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        /// <summary>tabs</summary>
+        [JsonProperty("tabs")]
+        public List<Section> Tabs { get; set; }
     }
 }

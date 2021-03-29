@@ -1,0 +1,62 @@
+﻿<div ng-controller="AFAPPDashboardController as vm">
+    <umb-load-indicator ng-if="vm.page.loading"></umb-load-indicator>
+    <div data-element="editor-header" class="umb-panel umb-editor-wrapper ng-scope" ng-class="{ '-no-footer': footer === 'false' }">
+        <div class="umb-editor-header ng-scope ng-isolate-scope" ng-class="{'-split-view-active': splitViewOpen === true}" hide-alias="true" hide-description="true" hide-icon="true" name-locked="true">
+            <div class="flex items-center" style="height: 100%;" aria-hidden="false">
+                <div class="flex items-center" style="flex: 1;">
+                    <div class="umb-editor-header__name-and-description" style="flex: 1 1 auto;">
+                        <h1 class="umb-panel-header-name ng-binding ng-scope" title="">
+                            <localize key="AFAPP_Dashboard.Title"></localize>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-element="editor-container" class="umb-editor-container umb-panel-body umb-scrollable row-fluid ng-scope" ng-class="{'-stop-scrolling': numberOfOverlays > 0}">
+        <div class="umb-pane">
+            <div class="umb-box ng-scope" style="padding: 10px;">
+                <div class="umb-box-container">
+                    <div class="welcome-dashboard__intro">
+                        <h2 class="welcome-dashboard__subtitle" style="font-size: 16px; text-align: ">
+                            <localize key="AFAPP_Dashboard.SubTitle"></localize>
+                        </h2>
+                    </div>
+                    <div class="welcome-dashboard__content">
+                        <div class="welcome-dashboard__description">
+                            <localize key="AFAPP_Dashboard.Description"></localize>
+                        </div>
+                        <div class="welcome-dashboard__cards" style="display: table !important;">
+                            <div class="welcome-dashboard__card">
+                                <!--<div class="welcome-dashboard__card-image-wrapper">
+                                    <img class="welcome-dashboard__card-image" alt="" />
+                                </div>-->
+                                <div class="welcome-dashboard__card-content">
+                                    <h2 class="welcome-dashboard__card-title">
+                                        <localize key="AFAPP_Dashboard.LatestChangesTitle"></localize>
+                                    </h2>
+                                    <div class="welcome-dashboard__card-teaser">
+                                        <localize key="AFAPP_Dashboard.LatestChangesDescription"></localize>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="welcome-dashboard__card">
+                                <!--<div class="welcome-dashboard__card-image-wrapper">
+                                    <img class="welcome-dashboard__card-image" alt="" />
+                                </div>-->
+                                <div class="welcome-dashboard__card-content">
+                                    <h2 class="welcome-dashboard__card-title">
+                                        <localize key="AFAPP_Dashboard.VersionHistoryTitle"></localize>
+                                    </h2>
+                                    <div class="welcome-dashboard__card-teaser">
+                                        <localize key="AFAPP_Dashboard.VersionHistoryDescription"></localize>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

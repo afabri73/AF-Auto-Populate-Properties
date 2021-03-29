@@ -1,0 +1,60 @@
+[
+    {
+        "name": "AF-APP Configuration Manager",
+        "tabs": [
+            {
+                "id": 1,
+                "sectionName": "content",
+                "label": "CONTENT",
+                "alias": "afappContentTab",
+                "active": true,
+                "actions": [
+                    {
+                        "action": "saving",
+                        "doctypes": [
+                            {
+                                "doctypeAlias": "simplePage",
+                                "properties": [
+                                    {
+                                        "propertyAlias": "title",
+                                        "config": {
+                                            "propertyType": "string",
+                                            "propertyAliasToCopyValue": "Name",
+                                            "defaultValue": ""
+                                        }
+                                    },
+                                    {
+                                        "propertyAlias": "date",
+                                        "config": {
+                                            "propertyType": "datetime",
+                                            "propertyAliasToCopyValue": "CreateDate",
+                                            "defaultValue": ""
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "sectionName": "media",
+                "label": "MEDIA",
+                "alias": "afappMediaTab",
+                "active": false,
+                "actions": [
+                    {
+                        "action": "saving",
+                        "doctypes": [
+                            {
+                                "doctypeAlias": null,
+                                "properties": null
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

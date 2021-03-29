@@ -1,121 +1,155 @@
-﻿<div ng-controller="AFAPPJSONConfigController">
-    <umb-panel>
-        <umb-header id="afapp-header">
-            <div class="umb-panel-header-content-wrapper">
-                <div class="umb-panel-header-content">
-                    <div class="umb-panel-header-left-side -top-position" ng-class="{'-top-position': tabs || !icon }">
-                        <div class="umb-panel-header-title-wrapper">
-                            <div class="umb-panel-header-name ng-scope ng-binding"><h2><localize key="AFAPP_Config.PageTitle"></localize></h2></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </umb-header>
-        <umb-content id="afapp-content">
-            <div class="umb-panel-body with-header umb-scrollable no-footer" style="padding: 0 20px; margin-top: 19px;">
-                <h3 class="title"><localize key="AFAPP_Config.Title"></localize> <localize key="AFAPP_Config.SubTitle"> </localize></h3>
-                <div class="description">
-                    <localize key="AFAPP_Config.Description"></localize>
-                </div>
-                <div ng-switch="id">
-                    <form id="jsonStructure" ng-submit="genConfPost(JSONStructure)" role="form">
-                        <!-- SECTIONS -->
-                        <ul class="nav nav-tabs" style="margin: 0;">
-                            <li ng-class="{ 'active' : $index == 0 }" ng-repeat="section in JSONStructure">
-                                <a class="section{{ section.section | uppercase }}" data-toggle="tab" href="#section{{ section.section | uppercase }}"><strong>{{ section.section | uppercase }}</strong></a>
-                            </li>
-                        </ul>
-                        <div class="tab-content actionsAccordion">
-                            <div id="section{{ section.section | uppercase }}" ng-class="$index == 0 ? 'tab-pane fade in active' : 'tab-pane fade'" ng-repeat="section in JSONStructure" ng-style="section.section == 'content' ? {'background-color':'#EBF5FB', 'padding':'10px'} : {'background-color':'#FDEDEC', 'padding':'10px'}">
-                                <!-- ACTIONS -->
-                                <div class="panel-group" id="{{ section.section | uppercase }}accordion" style="margin: 0;">
-                                    <div class="panel panel-primary" ng-repeat="action in section.actions">
-                                        <div class="panel-heading">
-                                            <div class="panel-title">
-                                                <a href="#{{ section.section | uppercase }}{{ action.action | uppercase }}" data-toggle="collapse" data-parent="#{{ section.section | uppercase }}accordion">Node Action: <strong>"{{ action.action | uppercase }}"</strong></a>
-                                            </div>
-                                        </div>
-                                        <div id="{{ section.section | uppercase }}{{ action.action | uppercase }}" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                <!-- DOCTYPES -->
-                                                <div class="form-group doctypes" ng-repeat="doctype in action.doctypes" style="margin-bottom: 25px; border-bottom: 2px solid #a2a1a6;">
-                                                    <label for="doctypeAlias" style="display: table-cell;">Select a Doctype</label>
-                                                    <select ng-if="section.section == 'content'" ng-model="doctype.doctypeAlias" id="contenttypeAlias" name="contenttypeAlias" style="width: auto;">
-                                                        <option value="">all</option>
-                                                        <option ng-repeat="contenttype in allContentTypes" value="{{ contenttype }}">{{ contenttype }}</option>
-                                                    </select>
-                                                    <select ng-if="section.section == 'media'" ng-model="doctype.doctypeAlias" id="mediatypeAlias" name="mediatypeAlias" style="width: auto;">
-                                                        <option value="">all</option>
-                                                        <option ng-repeat="mediatype in allMediaTypes" value="{{ mediatype }}">{{ mediatype }}</option>
-                                                    </select>
-
-                                                    <button type="button" ng-click="AddNewProperty(section.section, action.action, doctype.doctypeAlias)" class="btn btn-info" style="margin-bottom: 10px;">Add New Property</button>
-                                                    <button type="button" ng-click="RemoveDoctype(section.section, action.action, doctype.doctypeAlias)" class="btn btn-danger" style="margin-bottom: 10px;">Remove this Doctype</button>
-
-                                                    <!-- PROPERTIES -->
-                                                    <div class="form-group properties" ng-repeat="property in doctype.properties" style="padding-top: 10px; padding-bottom: 10px;">
-                                                        <div class="table-responsive">
-                                                            <table class="table">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th style="text-align: center; width: 15%;">Property Alias</th>
-                                                                        <th style="text-align: center; width: 15%;">Property Type</th>
-                                                                        <th style="text-align: center; width: 15%;">Copy Value From</th>
-                                                                        <th style="text-align: center;">Default value</th>
-                                                                        <th style="text-align: center; width: 6%"></th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td style="text-align: center;">
-                                                                            <select ng-if="section.section == 'content'" ng-model="property.propertyAlias" id="propertyAlias" name="propertyAlias" ng-options="property for property in allContentProperties track by property" style="width: 150px;">
-                                                                                <option style="display: none" value="">Select Property</option>
-                                                                            </select>
-                                                                            <select ng-if="section.section == 'media'" ng-model="property.propertyAlias" id="propertyAlias" name="propertyAlias" ng-options="property for property in allMediaProperties track by property" style="width: 150px;">
-                                                                                <option style="display: none" value="">Select Property</option>
-                                                                            </select>
-                                                                        </td>
-                                                                        <td style="text-align: center;">
-                                                                            <select ng-model="property.config.propertyType" id="propertyType" name="propertyType" style="width: auto;">
-                                                                                <option style="display:none" value="">Select Type</option>
-                                                                                <option value="string" selected="selected">string</option>
-                                                                                <option value="datetime">datetime</option>
-                                                                                <option value="bool">bool</option>
-                                                                            </select>
-                                                                        </td>
-                                                                        <td style="text-align: center;">
-                                                                            <select ng-if="section.section == 'content'" ng-model="property.config.propertyAliasToCopyValue" id="propertyAliasToCopyValue" name="propertyAliasToCopyValue" ng-options="propertyAliasToCopyValue for propertyAliasToCopyValue in allContentPropertiesToCopyValue track by propertyAliasToCopyValue" style="width: 150px;">
-                                                                                <option style="display: none;" value="">Select Property</option>
-                                                                            </select>
-                                                                            <select ng-if="section.section == 'media'" ng-model="property.config.propertyAliasToCopyValue" id="propertyAliasToCopyValue" name="propertyAliasToCopyValue" ng-options="propertyAliasToCopyValue for propertyAliasToCopyValue in allMediaPropertiesToCopyValue track by propertyAliasToCopyValue" style="width: 150px;">
-                                                                                <option style="display:none" value="">Select Property</option>
-                                                                            </select>
-                                                                        </td>
-                                                                        <td>
-                                                                            <input type="text" ng-model="property.config.defaultValue" id="defaultValue" name="defaultValue" style="width: 100%;" />
-                                                                        </td>
-                                                                        <td style="text-align: center; padding-right: 15px;"><a ng-click="RemoveProperty(section.section, action.action, doctype.doctypeAlias, property.propertyAlias)" class="btn btn-danger"><i class="icon-delete"></i></a></td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
+﻿<div ng-controller="AFAPPJSONConfigController as vm">
+    <!-- UMBRACO LOADER INDICATOR -->
+    <umb-load-indicator ng-if="vm.loading"></umb-load-indicator>
+    <!-- AFAPP UMB EDITOR VIEW PANEL -->
+    <umb-editor-view ng-if="!vm.loading">
+        <form name="jsonStructure" id="jsonStructure" ng-submit="vm.GenConfPost(vm.JSONStructure)" val-form-manager novalidate role="form">
+            <!-- AFAPP UMB EDITOR HEADER -->
+            <umb-editor-header name="vm.JSONStructure.name" name-locked="true" hide-alias="true" hide-description="true" hide-icon="true"></umb-editor-header>
+            <!-- AFAPP EDITOR CONTENT -->
+            <umb-editor-container>
+                <div class="umb-editor-description" style="margin-bottom: 30px;"><localize key="AFAPP_Config.Description"></localize></div>
+                <!-- AFAPP UMB TABS NAV -->
+                <umb-tabs-nav tabs="vm.JSONStructure.tabs" on-tab-change="vm.changeTab(tab)" class="afapp-umb-tabs-nav"></umb-tabs-nav>
+                <!-- AFAPP UMB TABS CONTENT -->
+                <umb-tabs-content class="form-horizontal" view="true">
+                    <!-- TAB - SECTIONS -->
+                    <umb-tab id="{{ tab.alias }}" ng-repeat="tab in vm.JSONStructure.tabs" rel="{{ tab.alias }}" class="afapp-umb-tabs-content">
+                        <!-- ACTIONS -->
+                        <div ng-show="tab.active" ng-repeat="action in tab.actions" class="custom-tab-content">
+                            <umb-box ng-if="action.action === 'saving'">
+                                <umb-box-header title="Node Action: ''{{ action.action | uppercase }}''" description="According to official documentatione, with umbraco 8 the auto populate properties will be done only on saving action" class="custom-tab-header"></umb-box-header>
+                                <umb-box-content class="custom-umb-box-content">
+                                    <!-- DOCTYPE ACTIONS -->
+                                    <div class="form-group">
+                                        <!-- DOCTYPES LIST -->
+                                        <umb-box ng-repeat="doctype in action.doctypes" ng-hide="doctype.doctypeAlias == null" style="border: 1px solid #eeeeee;">
+                                            <umb-box-header class="alert" style="margin-bottom: 0; background-color: aliceblue; color: #000; display: block;">
+                                                <!-- DOCTYPE SELECTION -->
+                                                <label for="{{ tab.sectionName }}_{{ action.action }}_selectDoctypeAlias" style="margin-right: 10px;">Doctype:</label>
+                                                <select id="{{ tab.sectionName }}_{{ action.action }}_selectDoctypeAlias" 
+                                                        name="{{ tab.sectionName }}_{{ action.action }}_selectDoctypeAlias" 
+                                                        ng-model="doctype.doctypeAlias" 
+                                                        style="width: auto; margin-right: 10px;"
+                                                         no-dirty-check>
+                                                    <option value="">all</option>
+                                                    <option ng-repeat="contenttype in vm.allContentTypes" value="{{ contenttype }}">{{ contenttype }}</option>
+                                                </select>
+                                                <!-- BUTTON TO REMOVE DOCTYPE FROM COLLECTION -->
+                                                <a id="{{ tab.sectionName }}_{{ action.action }}_{{ (doctype.doctypeAlias == '') ? 'all' : doctype.doctypeAlias }}_RemoveDoctype"
+                                                    name="{{ tab.sectionName }}_{{ action.action }}_{{ (doctype.doctypeAlias == '') ? 'all' : doctype.doctypeAlias }}_RemoveDoctype"
+                                                    title="Remove ''{{ (doctype.doctypeAlias == '') ? 'all' : doctype.doctypeAlias }}'' Doctype and all its Properties from Configuration"
+                                                    ng-click="vm.RemoveDoctype(tab.sectionName, action.action, doctype.doctypeAlias)"
+                                                    class="btn btn-danger">
+                                                    Delete
+                                                </a>
+                                            </umb-box-header>
+                                            <umb-box-content style="margin-top: 0; padding-top: 0;">
+                                                <!-- PROPERTIES -->
+                                                <div class="form-group" style="padding-top: 10px;">
+                                                    <table class="table" style="-webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="text-align: center; width: 15%;">Property Alias</th>
+                                                                <th style="text-align: center; width: 15%;">Property Type</th>
+                                                                <th style="text-align: center; width: 15%;">Copy Value From</th>
+                                                                <th style="text-align: center;">Default value</th>
+                                                                <th style="text-align: center; width: 6%"></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="property in doctype.properties">
+                                                                <td style="text-align: center;">
+                                                                    <select id="{{ tab.sectionName }}_{{ action.action }}_{{ (doctype.doctypeAlias == '') ? 'all' : doctype.doctypeAlias }}_{{ property.propertyAlias }}"
+                                                                            name="{{ tab.sectionName }}_{{ action.action }}_{{ (doctype.doctypeAlias == '') ? 'all' : doctype.doctypeAlias }}_{{ property.propertyAlias }}"
+                                                                            ng-model="property.propertyAlias" 
+                                                                            ng-options="property for property in vm.allContentProperties track by property" 
+                                                                            style="width: 150px;"
+                                                                             no-dirty-check>
+                                                                        <option style="display: none" value="">Select Property</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td style="text-align: center;">
+                                                                    <select id="{{ tab.sectionName }}_{{ action.action }}_{{ (doctype.doctypeAlias == '') ? 'all' : doctype.doctypeAlias }}_{{ property.propertyAlias }}_{{ property.config.propertyType }}"
+                                                                            name="{{ tab.sectionName }}_{{ action.action }}_{{ (doctype.doctypeAlias == '') ? 'all' : doctype.doctypeAlias }}_{{ property.propertyAlias }}_{{ property.config.propertyType }}"
+                                                                            ng-model="property.config.propertyType" 
+                                                                            style="width: auto;" no-dirty-check>
+                                                                        <option style="display:none" value="">Select Type</option>
+                                                                        <option value="string" selected="selected">string</option>
+                                                                        <option value="datetime">datetime</option>
+                                                                        <option value="bool">bool</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td style="text-align: center;">
+                                                                    <select id="{{ tab.sectionName }}_{{ action.action }}_{{ (doctype.doctypeAlias == '') ? 'all' : doctype.doctypeAlias }}_{{ property.propertyAlias }}_{{ property.config.propertyAliasToCopyValue }}"
+                                                                            name="{{ tab.sectionName }}_{{ action.action }}_{{ (doctype.doctypeAlias == '') ? 'all' : doctype.doctypeAlias }}_{{ property.propertyAlias }}_{{ property.config.propertyAliasToCopyValue }}"
+                                                                            ng-model="property.config.propertyAliasToCopyValue"
+                                                                            ng-options="propertyAliasToCopyValue for propertyAliasToCopyValue in vm.allContentPropertiesToCopyValue track by propertyAliasToCopyValue"
+                                                                            style="width: 150px;"
+                                                                             no-dirty-check>
+                                                                        <option style="display: none;" value="">Select Property</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text"
+                                                                            id="{{ tab.sectionName }}_{{ action.action }}_{{ (doctype.doctypeAlias == '') ? 'all' : doctype.doctypeAlias }}_{{ property.propertyAlias }}_{{ property.config.defaultValue }}"
+                                                                            name="{{ tab.sectionName }}_{{ action.action }}_{{ (doctype.doctypeAlias == '') ? 'all' : doctype.doctypeAlias }}_{{ property.propertyAlias }}_{{ property.config.defaultValue }}"
+                                                                            ng-model="property.config.defaultValue"
+                                                                            style="width: 100%;" 
+                                                                            no-dirty-check />
+                                                                </td>
+                                                                <td style="text-align: center; padding-right: 15px;">
+                                                                    <a id="{{ tab.sectionName }}_{{ action.action }}_{{ (doctype.doctypeAlias == '') ? 'all' : doctype.doctypeAlias }}_{{ property.propertyAlias }}_RemoveProperty"
+                                                                        name="{{ tab.sectionName }}_{{ action.action }}_{{ (doctype.doctypeAlias == '') ? 'all' : doctype.doctypeAlias }}_{{ property.propertyAlias }}_RemoveProperty"
+                                                                        title="Remove ''{{ property.propertyAlias }}'' Property"
+                                                                        ng-click="vm.RemoveProperty(tab.sectionName, action.action, doctype.doctypeAlias, property.propertyAlias)"
+                                                                        class="btn btn-danger">
+                                                                        <i class="icon-delete" style="line-height: 2;"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
-                                                <button type="button" ng-click="AddNewDocType(section.section, action.action)" class="btn btn-info">Add New DocType</button>
-                                            </div>
+                                                <!-- BUTTON TO ADD NEW PROPERTY -->
+                                                <div style="text-align: center;">
+                                                    <a id="button_{{ tab.sectionName }}_{{ action.action }}_DoctypeAlias_AddNewProperty" 
+                                                        name="button_{{ tab.sectionName }}_{{ action.action }}_DoctypeAlias_AddNewProperty"
+                                                        title="Add New Property"
+                                                        ng-click="vm.AddNewProperty(tab.sectionName, action.action, doctype.doctypeAlias)" 
+                                                        class="btn btn-info">
+                                                        Add New Property
+                                                    </a>
+                                                </div>
+                                            </umb-box-content>
+                                        </umb-box>
+                                        <div ng-repeat="doctype in action.doctypes" ng-hide="doctype.doctypeAlias != null" style="margin-top: 30px; margin-bottom: 30px;">
+                                            The <strong>{{ tab.sectionName | uppercase }}</strong> Section has not yet been configured
                                         </div>
+                                        <!-- BUTTON TO ADD SELECTED DOCTYPE TO COLLECTION -->
+                                        <a id="{{ tab.sectionName }}_{{ action.action }}_DoctypeAlias_AddSelectedDoctype" 
+                                            name="{{ tab.sectionName }}_{{ action.action }}_DoctypeAlias_AddSelectedDoctype" 
+                                            title="Add New Doctype"
+                                            ng-click="vm.AddNewDocType(tab.sectionName, action.action)" 
+                                            class="btn btn-primary">
+                                            Add New Doctype
+                                        </a>
                                     </div>
-                                </div>
-                            </div>
+                                </umb-box-content>
+                            </umb-box>
                         </div>
-                        <button type="submit" class="btn btn-success" style="margin-top: 10px;">Update JSON File</button>
-                    </form>
-                    <hr />
-                    <h4>Current JSON Structure (Live update)</h4>
-                    <pre>{{ JSONStructure }}</pre>
-                </div>
-            </div>
-        </umb-content>
-        <umb-footer id="afapp-footer"/>
-    </umb-panel>
+                    </umb-tab>
+                </umb-tabs-content>
+                <hr />
+                <h4>(Live Update) JSON structure content</h4>
+                <pre style="background-color: #fff;">{{ vm.JSONStructure }}</pre>
+            </umb-editor-container>
+            <!-- AFAPP EDITOR FOOTER -->
+            <umb-editor-footer>
+                <umb-editor-footer-content-right>
+                    <button type="submit" class="btn btn-success">Update JSON File</button>
+                </umb-editor-footer-content-right>
+            </umb-editor-footer>
+        </form>
+    </umb-editor-view>
 </div>

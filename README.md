@@ -26,7 +26,8 @@ Before install this package, be sure to backup this config file and uninstall al
 
 **Latest Changes**
 ==============
-- v8.0.0.0 - Updated package to be compatible with Umbraco 8. According to Umbraco directives, the Creation Action has been removed therefore the Auto Populate Properties function now only occurs during the Saving Action
+- v8.0.1   - Fixed "Object not reference" Error 
+- v8.0.0   - Updated package to be compatible with Umbraco 8. According to Umbraco directives, the Creation Action has been removed therefore the Auto Populate Properties function now only occurs during the Saving Action
 - v7.3.0.0 - Configuration Tool moved in a custom section
 - v7.2.0.0 - Added custom treenode in Developer Section with a smart GUI to create/update the configuration file
 - v7.1.0.0 - Added doctype support
@@ -34,6 +35,6 @@ Before install this package, be sure to backup this config file and uninstall al
 
 **Version History**
 ===============
-- v8.0.0.0 - For Umbraco v8.10+ (not tested with previous versions)
+- v8.0.1   - For Umbraco v8.10+ (not tested with previous versions)
 - v7.3.0.0 - For Umbraco v7.7+
 - v7.1.0.0 - For Umbraco until v7.6.13

@@ -90,9 +90,9 @@ namespace AF.AutoPopulateProperties.Handlers
                     {
                         foreach (var content in contentEventArgs.SavedEntities)
                         {
-                            AF.AutoPopulateProperties.Models.Doctype APPDoctype = APPSavingAction.Doctypes.Find(f => f.DoctypeAlias == content.ContentType.Alias);
+                            AF.AutoPopulateProperties.Models.Doctype APPDoctype = APPSavingAction.Doctypes.Find(f => f.DoctypeAlias == content.ContentType.Alias || f.DoctypeAlias == "all" || f.DoctypeAlias == string.Empty);
 
-                            if (APPDoctype.Properties.Count > 0)
+                            if (APPDoctype != null && APPDoctype.Properties.Count > 0)
                             {
                                 foreach (var APPProperty in APPDoctype.Properties)
                                 {
@@ -191,9 +191,9 @@ namespace AF.AutoPopulateProperties.Handlers
                     {
                         foreach (var media in mediaEventArgs.SavedEntities)
                         {
-                            AF.AutoPopulateProperties.Models.Doctype APPDoctype = APPSavingAction.Doctypes.Find(f => f.DoctypeAlias == media.ContentType.Alias);
+                            AF.AutoPopulateProperties.Models.Doctype APPDoctype = APPSavingAction.Doctypes.Find(f => f.DoctypeAlias == media.ContentType.Alias || f.DoctypeAlias == "all" || f.DoctypeAlias == string.Empty);
 
-                            if (APPDoctype.Properties.Count > 0)
+                            if (APPDoctype != null && APPDoctype.Properties.Count > 0)
                             {
                                 foreach (var APPProperty in APPDoctype.Properties)
                                 {
